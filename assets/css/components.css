@@ -421,8 +421,11 @@
     transition: none;
   }
 
+  /* Menu horizontal: sem a largura máxima da sidebar */
   .nav__lista {
     display: flex;
+    width: auto;
+    max-width: none;
     gap: var(--esp-md);
   }
 
