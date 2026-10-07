@@ -1,0 +1,51 @@
+/* ==========================================================================
+   no-js.css — carregado só dentro de <noscript>.
+   Sem JavaScript: o menu aparece aberto, sem hambúrguer. (O marquee pausa
+   só por CSS, com :hover e :focus-within, e não depende de JS.)
+   ========================================================================== */
+
+@media (max-width: 79.99em) {
+  .site-header {
+    position: relative;
+  }
+
+  .site-header__barra {
+    flex-wrap: wrap;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    width: 100%;
+    gap: var(--esp-sm);
+    padding: 0 0 var(--esp-sm);
+    border: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .nav__lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--esp-md);
+  }
+
+  .nav__lista li + li {
+    border: 0;
+  }
+
+  .nav__link {
+    min-height: var(--alvo-toque);
+    font-family: var(--fonte-texto);
+    font-size: var(--fs-base);
+    font-weight: var(--peso-medio);
+  }
+
+  .hero {
+    padding-top: var(--esp-lg);
+  }
+}

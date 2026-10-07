@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700" role="img" aria-label="Espaço reservado para a imagem do atendimento online">
+  <!-- TODO-CLIENTE: foto — substituir por atendimento-online-psicologa.webp (+ .jpg) -->
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="700" fill="url(#fundo)"/>
+  <g fill="#26316D" fill-opacity="0.18">
+    <rect x="210" y="150" width="480" height="300" rx="22"/>
+    <path d="M150 470h600l-40 50H190z"/>
+  </g>
+  <g fill="#26316D" fill-opacity="0.3">
+    <circle cx="450" cy="265" r="55"/>
+    <path d="M350 450c0-60 45-100 100-100s100 40 100 100z"/>
+  </g>
+  <text x="450" y="600" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#324089" >Imagem em breve</text>
+</svg>

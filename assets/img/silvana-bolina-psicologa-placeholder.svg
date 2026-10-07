@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Espaço reservado para a foto">
+  <!-- TODO-CLIENTE: foto — substituir por silvana-bolina-psicologa.webp (+ .jpg) -->
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#fundo)"/>
+  <g fill="#26316D" fill-opacity="0.12">
+    <circle cx="400" cy="420" r="130"/>
+    <path d="M150 1000c0-170 112-300 250-300s250 130 250 300z"/>
+  </g>
+  <text x="400" y="640" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#324089">Foto em breve</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700" role="img" aria-label="Espaço reservado para a foto do consultório">
+  <!-- TODO-CLIENTE: foto — substituir por consultorio-silvana-bolina.webp (+ .jpg) -->
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="700" fill="url(#fundo)"/>
+  <g fill="#26316D" fill-opacity="0.18">
+    <rect x="120" y="110" width="250" height="300" rx="20"/>
+    <rect x="530" y="380" width="250" height="150" rx="40"/>
+    <rect x="510" y="330" width="60" height="200" rx="30"/>
+    <rect x="740" y="330" width="60" height="200" rx="30"/>
+    <rect x="0" y="600" width="900" height="100"/>
+  </g>
+  <g stroke="#26316D" stroke-opacity="0.35" stroke-width="6" fill="none">
+    <path d="M245 110v300M120 260h250"/>
+  </g>
+  <text x="450" y="660" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#324089" >Foto do consultório em breve</text>
+</svg>

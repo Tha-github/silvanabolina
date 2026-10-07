@@ -1,0 +1,597 @@
+/* ==========================================================================
+   components.css — peças reutilizáveis: ouro, botões, header, menu, marquee,
+   listas e chips
+   ========================================================================== */
+
+/* ---- Marcador de dado pendente (some quando o dado real entrar) ---- */
+.todo {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.85em;
+  padding: 0 0.3em;
+  border-radius: 4px;
+  border: 1px dashed var(--ouro-fallback);
+}
+
+/* ==========================================================================
+   Ouro metálico
+   ========================================================================== */
+
+/* Fundo das seções e cor-base das bordas em gradiente.
+   --fundo-borda é a cor que preenche o miolo do elemento (padding-box). */
+.secao--clara {
+  --fundo-borda: var(--branco);
+  background-color: var(--branco);
+  color: var(--azul);
+}
+
+.secao--escura {
+  --fundo-borda: var(--azul-card);
+  background-color: var(--azul);
+  color: var(--branco);
+}
+
+.secao--escura :focus-visible {
+  outline-color: var(--cor-foco-escuro);
+}
+
+/* Borda fina em gradiente com cantos arredondados (duplo background) */
+.borda-ouro {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--fundo-borda, var(--branco)) 0 0) padding-box,
+    var(--ouro-gradiente) border-box;
+}
+
+/* Texto dourado: SOMENTE sobre fundo azul, com o ouro claro (todas as
+   paradas >= 4,5:1 sobre #324089). Nunca usar sobre branco. */
+.texto-ouro {
+  color: var(--ouro-claro-fallback);
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .texto-ouro {
+    background-image: var(--ouro-gradiente-sobre-azul);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* Linha curta em gradiente sob o título de cada seção (único adorno do H2) */
+.titulo-secao::after {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 2px;
+  margin: var(--esp-sm) auto 0;
+  border-radius: 2px;
+  background: var(--ouro-gradiente);
+}
+
+/* ==========================================================================
+   Botões
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2xs);
+  min-height: var(--alvo-toque);
+  padding: var(--esp-xs) var(--esp-md);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-family: var(--fonte-texto);
+  font-size: var(--fs-base);
+  font-weight: var(--peso-forte);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  /* Garet só tem o peso Book: um traço fino deixa o texto dos botões um pouco mais encorpado */
+  -webkit-text-stroke: 0.4px currentColor;
+  cursor: pointer;
+  transition:
+    background-color var(--transicao),
+    background-position var(--dur-lenta) var(--ease),
+    border-color var(--transicao),
+    color var(--transicao),
+    transform var(--transicao);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn__icone {
+  flex-shrink: 0;
+}
+
+.btn--sm {
+  min-height: var(--alvo-toque);
+  padding: var(--esp-2xs) var(--esp-md);
+  font-size: var(--fs-sm);
+}
+
+.btn--lg {
+  min-height: 3.25rem;
+  padding: var(--esp-sm) var(--esp-md);
+}
+
+@media (min-width: 30em) {
+  .btn--lg {
+    padding-inline: var(--esp-lg);
+  }
+}
+
+/* Primário e WhatsApp: ouro metálico com texto azul em negrito.
+   O gradiente tem o dobro da largura e desliza no hover. */
+.btn--primario,
+.btn--whatsapp,
+.whatsapp-flutuante {
+  background-color: var(--ouro-fallback);
+  background-image: var(--ouro-gradiente);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  color: var(--azul-profundo);
+  font-weight: var(--peso-forte);
+}
+
+.btn--primario:hover,
+.btn--whatsapp:hover,
+.whatsapp-flutuante:hover {
+  background-position: 100% 50%;
+  color: var(--azul-profundo);
+}
+
+.btn--contorno {
+  background-color: transparent;
+  border-color: currentColor;
+  color: var(--azul);
+}
+
+.btn--contorno:hover {
+  background-color: var(--azul);
+  border-color: var(--azul);
+  color: var(--branco);
+}
+
+.secao--escura .btn--contorno {
+  color: var(--branco);
+}
+
+.secao--escura .btn--contorno:hover {
+  background-color: var(--branco);
+  border-color: var(--branco);
+  color: var(--azul);
+}
+
+/* ==========================================================================
+   Header fixo
+   ========================================================================== */
+/* Navbar azul com texto branco; o que é dourado continua dourado */
+.site-header {
+  --fundo-borda: var(--azul);
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-header);
+  background-color: var(--azul);
+  color: var(--branco);
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.site-header :focus-visible {
+  outline-color: var(--cor-foco-escuro);
+}
+
+.site-header__barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-md);
+  min-height: var(--header-h);
+}
+
+/* ---- Logo tipográfico (monograma RV) ---- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2xs);
+  min-height: var(--alvo-toque);
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo__rv {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border-radius: 4px;
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+  font-weight: var(--peso-titulo);
+  line-height: 1;
+}
+
+.logo__texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo__espaco {
+  font-size: 0.75rem;
+  font-weight: var(--peso-medio);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+.logo__nome {
+  white-space: nowrap;
+  font-family: var(--fonte-titulo);
+  font-size: 1.125rem;
+  font-weight: var(--peso-titulo);
+}
+
+/* ---- Botão hambúrguer (sem JS ele some: ver no-js.css) ---- */
+.nav-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: var(--alvo-toque);
+  height: var(--alvo-toque);
+  margin-right: calc(var(--esp-2xs) * -1);
+  border-radius: var(--raio-sm);
+  color: var(--branco);
+}
+
+.nav-toggle__icone {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 16px;
+}
+
+.nav-toggle__icone span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background-color: currentColor;
+  transition:
+    transform var(--transicao),
+    opacity var(--dur-rapida) var(--ease),
+    top var(--transicao);
+}
+
+.nav-toggle__icone span:nth-child(1) { top: 0; }
+.nav-toggle__icone span:nth-child(2) { top: 7px; }
+.nav-toggle__icone span:nth-child(3) { top: 14px; }
+
+.nav-toggle:active {
+  transform: scale(0.96);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone span:nth-child(1) {
+  top: 7px;
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icone span:nth-child(3) {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
+/* ---- Navegação: mobile/tablet — sidebar azul de tela inteira que desliza
+   da direita. Logo e botão de fechar ficam por cima (z-index 2). ---- */
+.logo,
+.nav-toggle {
+  position: relative;
+  z-index: 2;
+}
+
+.nav {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--esp-xl);
+  padding: calc(var(--header-h) + var(--esp-xl)) var(--gutter) var(--esp-xl);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background-color: var(--azul);
+  text-align: center;
+  visibility: hidden;
+  transform: translateX(100%);
+  transition:
+    transform var(--dur-lenta) var(--ease-out),
+    visibility 0s linear var(--dur-lenta);
+}
+
+.nav.is-aberto {
+  visibility: visible;
+  transform: none;
+  transition:
+    transform var(--dur-lenta) var(--ease-out),
+    visibility 0s;
+}
+
+.nav__lista {
+  width: 100%;
+  max-width: 20rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__lista li + li {
+  border-top: 1px solid rgb(255 255 255 / 0.15);
+}
+
+/* Links no mesmo estilo do menu do desktop: Garet, branco, traço dourado no ativo */
+.nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+  font-family: var(--fonte-texto);
+  font-size: var(--fs-lg);
+  font-weight: var(--peso-medio);
+  color: var(--branco);
+  text-decoration: none;
+}
+
+/* Item ativo: traço dourado sob o texto (mobile e desktop) */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.6rem;
+  width: 100%;
+  max-width: 2.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ouro-gradiente);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transicao);
+}
+
+.nav__link:hover::after,
+.nav__link[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.nav__cta {
+  white-space: nowrap;
+}
+
+/* Sidebar: traço do item ativo centralizado sob o texto */
+@media (max-width: 79.99em) {
+  .nav__link::after {
+    left: 50%;
+    bottom: 0.5rem;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+  }
+
+  .nav__link:hover::after,
+  .nav__link[aria-current="true"]::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+/* Rolagem travada enquanto o menu mobile está aberto */
+.menu-aberto,
+.menu-aberto body {
+  overflow: hidden;
+}
+
+/* ---- Navegação: desktop (a partir de 1280px; abaixo disso o menu não cabe e vira hambúrguer) ---- */
+@media (min-width: 80em) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    z-index: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--esp-lg);
+    padding: 0;
+    text-align: left;
+    overflow: visible;
+    background: none;
+    border: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+  }
+
+  .nav__lista {
+    display: flex;
+    gap: var(--esp-md);
+  }
+
+  .nav__lista li + li {
+    border: 0;
+  }
+
+  .nav__link {
+    min-height: var(--alvo-toque);
+    font-size: var(--fs-sm);
+  }
+
+  .nav__link::after {
+    max-width: none;
+  }
+
+  .nav__cta {
+    align-self: center;
+  }
+}
+
+/* ==========================================================================
+   Faixa marquee — ouro metálico com texto azul.
+   Sem botão: pausa ao passar o mouse e ao receber foco por teclado.
+   ========================================================================== */
+.marquee {
+  --marquee-gap: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+  --marquee-duracao: 40s;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  min-height: 2.75rem;
+  padding-block: 0.5rem;
+  background-color: var(--ouro-fallback);
+  background-image: var(--ouro-gradiente);
+  color: var(--azul-profundo);
+}
+
+.marquee:focus-visible {
+  outline: 3px solid var(--azul-profundo);
+  outline-offset: -5px;
+  border-radius: 0;
+}
+
+.marquee__trilho {
+  display: flex;
+  width: max-content;
+}
+
+.marquee__grupo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--marquee-gap);
+  margin: 0;
+  padding: 0 var(--marquee-gap) 0 0;
+  list-style: none;
+  font-family: var(--fonte-texto);
+  font-size: var(--fs-sm);
+  font-weight: var(--peso-forte);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: marquee-rolar var(--marquee-duracao) linear infinite;
+}
+
+.marquee__grupo li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--marquee-gap);
+}
+
+/* Separador entre as palavras (decorativo, não é lido por leitor de tela) */
+.marquee__grupo li::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--azul-profundo);
+}
+
+.marquee__grupo abbr {
+  text-decoration: none;
+}
+
+.marquee:hover .marquee__grupo,
+.marquee:focus-within .marquee__grupo {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-rolar {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Movimento reduzido: faixa parada, palavras centralizadas, sem cópias */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__trilho {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .marquee__grupo {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: var(--esp-xs);
+    padding: 0 var(--gutter);
+    white-space: normal;
+    animation: none;
+  }
+
+  .marquee__grupo li:last-child::after {
+    content: none;
+  }
+
+  .marquee__grupo--copia {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Lista com check (marcador com função: cartões de atendimento e
+   "Você vai desenvolver"). Cor sólida para manter 3:1 no branco.
+   ========================================================================== */
+.lista-check {
+  display: grid;
+  gap: var(--esp-2xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.lista-check li {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.lista-check li::before {
+  content: "";
+  position: absolute;
+  top: 0.3em;
+  left: 0.35rem;
+  width: 0.4em;
+  height: 0.75em;
+  border-right: 2px solid var(--ouro-fallback);
+  border-bottom: 2px solid var(--ouro-fallback);
+  transform: rotate(45deg);
+}
+
+/* ==========================================================================
+   Alto contraste do sistema (forced-colors): gradientes viram cor do sistema
+   ========================================================================== */
+@media (forced-colors: active) {
+  .texto-ouro {
+    -webkit-text-fill-color: currentColor;
+    background: none;
+  }
+
+  .borda-ouro,
+  .btn {
+    border-color: CanvasText;
+  }
+
+  .titulo-secao::after,
+  .marquee__grupo li::after {
+    background: CanvasText;
+  }
+}

@@ -1,0 +1,4 @@
+Contact: mailto:TODO-CLIENTE-email-de-seguranca
+Expires: 2027-10-07T23:59:59.000Z
+Preferred-Languages: pt-BR
+Canonical: https://TODO-CLIENTE-dominio.com.br/.well-known/security.txt

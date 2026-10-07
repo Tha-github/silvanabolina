@@ -1,0 +1,1345 @@
+/* ==========================================================================
+   sections.css — layout de cada seção do index.html (ordem da seção 9)
+   O fundo vem de .secao--clara / .secao--escura (components.css), no próprio
+   <section>. Aqui o texto herda a cor da seção; nenhum wrapper interno pinta
+   fundo de tela cheia.
+   ========================================================================== */
+
+/* O <main> recebe foco pelo skip link; não precisa de contorno */
+#conteudo:focus {
+  outline: none;
+}
+
+.secao {
+  padding-block: var(--esp-secao);
+}
+
+/* ---- Cabeçalho de seção: H2 + linha dourada + texto de apoio ---- */
+.cabecalho-secao {
+  max-width: 46rem;
+  margin: 0 auto var(--esp-xl);
+  text-align: center;
+}
+
+.cabecalho-secao__lead {
+  margin-top: var(--esp-md);
+  font-size: var(--fs-lg);
+}
+
+.secao__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--esp-xl);
+}
+
+/* Fio dourado horizontal reutilizável (bordas superiores) */
+.carreira__funcionamento,
+.carreira__etapas li + li,
+.forma__lista li + li,
+.causa__saida-explicacao,
+.site-footer__copyright {
+  border-top: 1px solid;
+  border-image: var(--ouro-gradiente) 1;
+}
+
+/* ==========================================================================
+   2. HERO (branco) — mobile/tablet: coluna única centralizada, texto e foto;
+   desktop (>= 64em): texto à esquerda, foto à direita
+   ========================================================================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(var(--header-h) + var(--esp-xl));
+  /* Sem espaço embaixo: a foto encosta na faixa dourada */
+  padding-bottom: 0;
+  text-align: center;
+}
+
+.hero__conteudo {
+  display: grid;
+  justify-items: center;
+  gap: var(--esp-lg);
+}
+
+.hero__texto {
+  max-width: 42rem;
+}
+
+/* Profissão + CRP: exigência do CFP (não é eyebrow decorativo) */
+.hero__profissao {
+  margin-bottom: var(--esp-md);
+  font-size: var(--fs-sm);
+  font-weight: var(--peso-forte);
+  letter-spacing: var(--tracking-caps);
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.hero__profissao .todo {
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.hero__titulo {
+  max-width: 17ch;
+  margin-inline: auto;
+  font-size: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
+}
+
+/* Trecho em itálico e ouro escuro (texto grande sobre branco: >= 3,27:1) */
+.hero__destaque {
+  font-style: italic;
+  color: #8A6418;
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .hero__destaque {
+    background-image: var(--ouro-gradiente-texto-claro);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
+
+@media (forced-colors: active) {
+  .hero__destaque {
+    -webkit-text-fill-color: currentColor;
+    background: none;
+  }
+}
+
+.hero__subtitulo {
+  max-width: 40rem;
+  margin-top: var(--esp-md);
+  font-size: var(--fs-lg);
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--esp-sm);
+  margin-top: var(--esp-lg);
+}
+
+/* Garet é larga: padding menor para os dois botões caberem lado a lado */
+.hero__ctas .btn--lg {
+  padding-inline: var(--esp-md);
+}
+
+/* Foto sem moldura, sobre o símbolo Ψ e apoiada na base da seção */
+.hero__midia {
+  position: relative;
+  isolation: isolate;
+  align-self: end;
+  width: min(100% - 2rem, 19rem);
+}
+
+.hero__foto {
+  width: 100%;
+  height: auto;
+}
+
+/* Símbolo da psicologia (Ψ serifado em SVG): inteiro na altura, encostado na
+   borda direita da tela e com metade cortada (overflow: hidden do .hero) */
+.hero__psi {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 0;
+  height: 28rem;
+  width: auto;
+  max-width: none;
+  aspect-ratio: 1580 / 1365;
+  fill: var(--azul);
+  opacity: 0.12;
+  filter: blur(3px);
+  pointer-events: none;
+  transform: translateX(40%);
+}
+
+.hero__conteudo {
+  position: relative;
+  z-index: 1;
+}
+
+/* Celular: Ψ menor */
+@media (max-width: 47.999em) {
+  .hero__psi {
+    height: 19rem;
+  }
+}
+
+/* Celular: subtítulo oculto (o nome segue na linha de profissão) e foto mais baixa */
+@media (max-width: 47.999em) {
+  .hero__subtitulo {
+    display: none;
+  }
+
+  .hero__midia {
+    width: min(100% - 4rem, 14rem);
+  }
+}
+
+@media (min-width: 48em) {
+  .hero {
+    padding-top: calc(var(--header-h) + var(--esp-2xl));
+  }
+
+  .hero__midia {
+    width: min(100% - 2rem, 22rem);
+  }
+}
+
+@media (min-width: 64em) {
+  .hero {
+    text-align: left;
+  }
+
+  /* Desktop: do topo do banner (abaixo do menu) até a faixa dourada */
+  .hero__psi {
+    top: calc(var(--header-h) + var(--esp-lg));
+    height: auto;
+  }
+
+  .hero__conteudo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    align-items: center;
+    justify-items: stretch;
+    gap: var(--esp-2xl);
+  }
+
+  .hero__texto {
+    max-width: none;
+    padding-bottom: var(--esp-2xl);
+  }
+
+  .hero__titulo,
+  .hero__subtitulo,
+  .hero__profissao {
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  .hero__ctas {
+    justify-content: flex-start;
+  }
+
+  .hero__midia {
+    justify-self: center;
+    width: min(100% - 2rem, 24rem);
+  }
+
+  .hero__midia,
+  .hero__texto {
+    align-self: center;
+  }
+
+  .hero__midia {
+    align-self: end;
+  }
+}
+
+@media (min-width: 80em) {
+  .hero__conteudo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
+    gap: var(--esp-3xl);
+  }
+
+  .hero__midia {
+    /* Até a largura real da foto (408 px), para não ampliar */
+    width: min(100% - 2rem, 25.5rem);
+  }
+}
+
+/* ==========================================================================
+   4. VOCÊ JÁ SE SENTIU ASSIM? (azul) — faixa de frases igual à faixa dourada
+   Só CSS: rola sozinha, pausa ao passar o mouse ou com foco por teclado
+   (a faixa tem tabindex="0"); parada com prefers-reduced-motion.
+   ========================================================================== */
+.faixa-frases {
+  --faixa-gap: clamp(2rem, 1.2rem + 3vw, 4rem);
+  --faixa-duracao: 130s;
+
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--esp-md);
+}
+
+/* Esmaece as bordas por onde as frases entram e saem */
+.faixa-frases::before,
+.faixa-frases::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  width: 12%;
+  pointer-events: none;
+}
+
+.faixa-frases::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--azul), transparent);
+}
+
+.faixa-frases::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--azul), transparent);
+}
+
+.faixa-frases:focus-visible {
+  outline: 3px solid var(--cor-foco-escuro);
+  outline-offset: -4px;
+  border-radius: 0;
+}
+
+.faixa-frases__trilho {
+  display: flex;
+  width: max-content;
+}
+
+.faixa-frases__grupo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--faixa-gap);
+  margin: 0;
+  padding: 0 var(--faixa-gap) 0 0;
+  list-style: none;
+  animation: marquee-rolar var(--faixa-duracao) linear infinite;
+}
+
+.faixa-frases__grupo li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--faixa-gap);
+}
+
+/* Separador dourado entre as frases, como os pontos da faixa (decorativo) */
+.faixa-frases__grupo li::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ouro-gradiente);
+}
+
+.faixa-frases:hover .faixa-frases__grupo,
+.faixa-frases:focus-within .faixa-frases__grupo {
+  animation-play-state: paused;
+}
+
+.frase-dor {
+  max-width: none;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.375rem);
+  font-style: italic;
+  font-weight: var(--peso-titulo-leve);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Celular: cada frase quebra em até 3 linhas curtas, sem parar a rolagem */
+@media (max-width: 47.999em) {
+  .frase-dor {
+    width: 13ch;
+    font-size: 1.375rem;
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+/* Movimento reduzido: frases paradas, uma embaixo da outra, sem cópias */
+@media (prefers-reduced-motion: reduce) {
+  .faixa-frases::before,
+  .faixa-frases::after,
+  .faixa-frases__grupo--copia,
+  .faixa-frases__grupo li::after {
+    display: none;
+  }
+
+  .faixa-frases__trilho {
+    width: 100%;
+  }
+
+  .faixa-frases__grupo {
+    flex-direction: column;
+    width: 100%;
+    gap: var(--esp-md);
+    padding: 0 var(--gutter);
+    animation: none;
+  }
+
+  .frase-dor {
+    max-width: 30ch;
+    white-space: normal;
+  }
+}
+
+.fechamento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--esp-md);
+  max-width: 40rem;
+  margin: var(--esp-2xl) auto 0;
+  text-align: center;
+}
+
+.fechamento__texto {
+  font-size: var(--fs-lg);
+}
+
+/* ==========================================================================
+   5. SOBRE A SILVANA (branco) — foto em círculo acima do título, centralizado
+   ========================================================================== */
+.sobre__conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Círculo com borda em gradiente dourado (duplo background) */
+.sobre__foto-circulo {
+  overflow: hidden;
+  width: clamp(11rem, 8rem + 12vw, 15rem);
+  aspect-ratio: 1;
+  margin-bottom: var(--esp-xl);
+  border: 3px solid transparent;
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--branco) 0 0) padding-box,
+    var(--ouro-gradiente) border-box;
+}
+
+/* Celular: círculo menor */
+@media (max-width: 47.999em) {
+  .sobre__foto-circulo {
+    width: 9rem;
+  }
+}
+
+.sobre__foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 12%;
+}
+
+.sobre__texto {
+  max-width: 46rem;
+}
+
+.sobre__bio {
+  margin-top: var(--esp-lg);
+}
+
+.link-rede {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--alvo-toque);
+  margin-top: var(--esp-md);
+  font-weight: var(--peso-forte);
+  text-decoration-color: var(--ouro-fallback);
+  text-decoration-thickness: 2px;
+}
+
+/* Destaques: só os títulos, menores, separados por fios curtos */
+.destaques {
+  display: grid;
+  gap: var(--esp-lg);
+  width: 100%;
+  max-width: 56rem;
+  margin: var(--esp-2xl) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.destaque {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-inline: var(--esp-sm);
+}
+
+.destaque__titulo {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  font-weight: var(--peso-titulo);
+  line-height: 1.25;
+  overflow-wrap: normal;
+  text-wrap: balance;
+}
+
+/* Mobile: fio horizontal curto entre os destaques */
+.destaque + .destaque::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--esp-lg) * -0.5);
+  left: 50%;
+  width: 2rem;
+  height: 1px;
+  background: var(--ouro-gradiente);
+  transform: translateX(-50%);
+}
+
+@media (min-width: 48em) {
+  /* Quatro colunas separadas por fios verticais curtos em gradiente */
+  .destaques {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .destaque + .destaque::before {
+    top: 50%;
+    left: 0;
+    width: 1px;
+    height: 1.75rem;
+    background: var(--ouro-gradiente-suave);
+    transform: translateY(-50%);
+  }
+}
+
+/* ==========================================================================
+   6. FÉ E CIÊNCIA (azul) — um texto só, centralizado
+   ========================================================================== */
+.abordagem__texto {
+  font-size: var(--fs-lg);
+}
+
+/* Frase de respeito a todas as crenças (prompt.md, seção 6.5) */
+.respeito {
+  max-width: 34ch;
+  margin-top: var(--esp-2xl);
+  font-family: var(--fonte-titulo);
+  font-size: var(--fs-h3);
+  font-style: italic;
+  font-weight: var(--peso-titulo-leve);
+  line-height: 1.4;
+}
+
+.respeito::before {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 1px;
+  margin: 0 auto var(--esp-xl);
+  background: var(--ouro-gradiente);
+}
+
+/* ==========================================================================
+   7. ATENDIMENTO CLÍNICO (branco) — três cards centralizados
+   ========================================================================== */
+.cards-atendimento {
+  display: grid;
+  gap: var(--esp-md);
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.card-atendimento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--esp-lg);
+  border-radius: var(--raio-lg);
+  text-align: center;
+}
+
+.card-atendimento__titulo {
+  font-size: var(--fs-h4);
+  font-weight: var(--peso-titulo);
+}
+
+.card-atendimento__para {
+  margin-top: var(--esp-xs);
+}
+
+@media (min-width: 48em) {
+  .cards-atendimento {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64em) {
+  .card-atendimento {
+    padding: var(--esp-xl);
+  }
+}
+
+/* ==========================================================================
+   8. FORMAS DE ATENDIMENTO (azul) — painéis azul-card com imagem lateral
+   ========================================================================== */
+.formas {
+  display: grid;
+  gap: var(--esp-xl);
+}
+
+.forma {
+  display: grid;
+  overflow: hidden;
+  border-radius: var(--raio-lg);
+}
+
+/* Celular: imagem mais baixa; tablet: proporção original */
+.forma__midia {
+  aspect-ratio: 16 / 9;
+}
+
+@media (min-width: 48em) {
+  .forma__midia {
+    aspect-ratio: 9 / 7;
+  }
+}
+
+.forma__imagem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.forma__conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--esp-lg);
+  text-align: center;
+}
+
+.forma__titulo {
+  font-size: var(--fs-h3);
+}
+
+.forma__conteudo > p {
+  margin-top: var(--esp-xs);
+}
+
+.forma__conteudo > .btn {
+  margin-top: var(--esp-lg);
+}
+
+.forma__endereco {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--esp-3xs);
+  margin-top: var(--esp-md);
+  font-style: normal;
+}
+
+.forma__endereco-rotulo {
+  font-size: var(--fs-sm);
+  font-weight: var(--peso-forte);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.forma__lista {
+  width: 100%;
+  max-width: 28rem;
+  margin: var(--esp-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.forma__lista li {
+  padding-block: var(--esp-2xs);
+}
+
+/* ---- Mapa carregado só depois do clique ---- */
+.mapa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: var(--esp-md);
+}
+
+.mapa__nota {
+  margin-top: var(--esp-2xs);
+  font-size: var(--fs-sm);
+}
+
+.mapa__aviso {
+  font-size: var(--fs-sm);
+  font-weight: var(--peso-medio);
+}
+
+.mapa__aviso:empty {
+  display: none;
+}
+
+.mapa__aviso:not(:empty) {
+  margin-top: var(--esp-2xs);
+}
+
+.mapa__area {
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin-top: var(--esp-sm);
+  border-radius: var(--raio-md);
+  background-color: var(--azul);
+}
+
+.mapa__iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (min-width: 48em) {
+  .forma__conteudo {
+    padding: var(--esp-xl);
+  }
+}
+
+@media (min-width: 64em) {
+  .formas {
+    gap: var(--esp-2xl);
+  }
+
+  .forma {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .forma__midia {
+    aspect-ratio: auto;
+    min-height: 100%;
+  }
+
+  .forma__conteudo {
+    justify-content: center;
+    padding: var(--esp-2xl) var(--esp-xl);
+  }
+
+  .forma--invertida .forma__midia {
+    order: 2;
+  }
+}
+
+/* ==========================================================================
+   9. CARREIRA E DESENVOLVIMENTO PROFISSIONAL (branco)
+   ========================================================================== */
+.carreira__servicos {
+  display: grid;
+  gap: var(--esp-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carreira-card {
+  padding: var(--esp-lg);
+  border-radius: var(--raio-md);
+  text-align: center;
+}
+
+.carreira-card h3,
+.carreira__conteudo h3 {
+  margin-bottom: var(--esp-2xs);
+  font-size: var(--fs-h4);
+  font-weight: var(--peso-titulo);
+}
+
+.carreira-card p {
+  font-size: var(--fs-sm);
+}
+
+/* "Você vai desenvolver" + "Como funciona": sem moldura, centralizado */
+.carreira__conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 40rem;
+  margin: var(--esp-2xl) auto 0;
+  text-align: center;
+}
+
+.carreira__checklist {
+  justify-items: center;
+  margin-top: var(--esp-sm);
+  gap: var(--esp-xs);
+  text-align: center;
+}
+
+/* Check em linha, antes do texto, para a lista ficar centralizada */
+.carreira__checklist li {
+  padding-left: 0;
+}
+
+.carreira__checklist li::before {
+  position: relative;
+  top: -0.15em;
+  left: auto;
+  display: inline-block;
+  margin-right: 0.75em;
+}
+
+.carreira__funcionamento {
+  width: 100%;
+  margin-block: var(--esp-lg);
+  padding-top: var(--esp-lg);
+}
+
+.carreira__etapas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carreira__etapas li {
+  display: grid;
+  gap: var(--esp-3xs);
+  padding-block: var(--esp-sm);
+  font-size: var(--fs-sm);
+}
+
+.carreira__etapas strong {
+  font-size: var(--fs-base);
+}
+
+@media (min-width: 48em) {
+  .carreira__servicos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--esp-md);
+  }
+
+  .carreira-card {
+    padding: var(--esp-xl);
+  }
+}
+
+@media (min-width: 64em) {
+  .carreira__servicos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+/* ==========================================================================
+   11. CAUSA (branco) — caixa de apoio azul com borda em gradiente
+   ========================================================================== */
+.causa__conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--esp-xl);
+  text-align: center;
+}
+
+.causa__intro {
+  max-width: 46rem;
+}
+
+.causa__destaque {
+  margin-top: var(--esp-lg);
+  font-family: var(--fonte-titulo);
+  font-size: var(--fs-h4);
+  font-style: italic;
+  font-weight: var(--peso-titulo-leve);
+}
+
+.causa__texto {
+  margin-top: var(--esp-sm);
+  font-size: var(--fs-lg);
+}
+
+.causa__apoio {
+  --fundo-borda: var(--azul);
+  width: 100%;
+  max-width: 40rem;
+  padding: var(--esp-lg);
+  border-radius: var(--raio-lg);
+  color: var(--branco);
+}
+
+.causa__apoio :focus-visible {
+  outline-color: var(--cor-foco-escuro);
+}
+
+.causa__apoio h3 {
+  margin-bottom: var(--esp-xs);
+  font-size: var(--fs-h3);
+}
+
+.causa__telefones {
+  display: grid;
+  gap: var(--esp-2xs);
+  margin-block: var(--esp-md);
+  padding: 0;
+  list-style: none;
+}
+
+.causa__telefones li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--esp-xs);
+}
+
+/* Celular: número em cima, descrição embaixo */
+@media (max-width: 47.999em) {
+  .causa__telefones {
+    gap: var(--esp-md);
+  }
+
+  .causa__telefones li {
+    flex-direction: column;
+  }
+}
+
+.causa__telefones a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--alvo-toque);
+  min-height: var(--alvo-toque);
+  padding: var(--esp-3xs) var(--esp-xs);
+  text-decoration: underline;
+  text-decoration-color: var(--ouro-fallback);
+  text-underline-offset: 0.2em;
+  border-radius: var(--raio-sm);
+  color: var(--branco);
+  transition: background-color var(--transicao);
+}
+
+.causa__telefones a:hover {
+  background-color: rgb(255 255 255 / 0.08);
+}
+
+/* Número em ouro claro sobre o azul (>= 5:1) */
+.causa__telefones strong {
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.causa__telefones span {
+  font-size: var(--fs-sm);
+}
+
+.causa__nota,
+.causa__saida-explicacao {
+  font-size: var(--fs-sm);
+}
+
+.causa__saida-explicacao {
+  margin-top: var(--esp-md);
+  padding-top: var(--esp-sm);
+}
+
+/* Saída rápida: branco, borda em gradiente e texto azul */
+.saida-rapida {
+  --fundo-borda: var(--branco);
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--esp-md);
+  z-index: var(--z-flutuante);
+  min-height: var(--alvo-toque);
+  padding: var(--esp-2xs) var(--esp-md);
+  border-width: 2px;
+  border-radius: var(--raio-sm);
+  box-shadow: var(--sombra-md);
+  color: var(--azul);
+  font-weight: var(--peso-forte);
+}
+
+.saida-rapida:active,
+.whatsapp-flutuante:active {
+  transform: scale(0.97);
+}
+
+/* Anel duplo (azul por dentro, branco por fora): visível em qualquer fundo */
+.saida-rapida:focus-visible,
+.whatsapp-flutuante:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 8px var(--branco);
+}
+
+@media (min-width: 48em) {
+  .causa__apoio {
+    padding: var(--esp-xl);
+  }
+}
+
+/* ==========================================================================
+   12. DEPOIMENTOS (oculto até haver conteúdo aprovado)
+   ========================================================================== */
+.depoimentos__grade {
+  display: grid;
+  gap: var(--esp-md);
+}
+
+.depoimento-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--esp-lg);
+  margin: 0;
+  padding: var(--esp-lg);
+  border-radius: var(--raio-md);
+  text-align: center;
+}
+
+.depoimento-card blockquote {
+  font-family: var(--fonte-titulo);
+  font-size: var(--fs-lg);
+  font-style: italic;
+}
+
+.depoimento-card figcaption {
+  display: grid;
+  font-size: var(--fs-sm);
+}
+
+@media (min-width: 48em) {
+  .depoimentos__grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ==========================================================================
+   13. PERGUNTAS FREQUENTES (azul) — cartões azul-card, texto à esquerda
+   ========================================================================== */
+.faq__lista {
+  display: grid;
+  gap: var(--esp-sm);
+  max-width: 54rem;
+  margin-inline: auto;
+}
+
+.faq__item {
+  overflow: clip;
+  border-radius: var(--raio-md);
+}
+
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-sm);
+  min-height: 3.5rem;
+  padding: var(--esp-sm) var(--esp-md);
+  font-weight: var(--peso-forte);
+  text-align: left;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* +/– em ouro claro (>= 4,5:1 sobre o cartão #26316D) */
+.faq__item summary::after {
+  content: "+";
+  flex: 0 0 1.75rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.75rem;
+  font-weight: var(--peso-titulo);
+  line-height: 1;
+  text-align: center;
+  color: var(--ouro-claro-fallback);
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .faq__item summary::after {
+    background-image: var(--ouro-gradiente-sobre-azul);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.faq__item[open] summary::after {
+  content: "−";
+}
+
+.faq__item summary:focus-visible {
+  outline-offset: -4px;
+}
+
+.faq__resposta {
+  padding: 0 var(--esp-md) var(--esp-md);
+  text-align: left;
+}
+
+.faq__resposta p {
+  margin: 0;
+  text-align: left;
+}
+
+@media (forced-colors: active) {
+  .faq__item summary::after {
+    -webkit-text-fill-color: currentColor;
+    background: none;
+  }
+}
+
+/* ==========================================================================
+   14. CONTATO (branco) — só os canais: lado a lado no desktop, empilhados no mobile
+   ========================================================================== */
+.contato__canais {
+  display: grid;
+  gap: var(--esp-sm);
+  max-width: 26rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.contato-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: var(--esp-md);
+  border-radius: var(--raio-md);
+  text-align: center;
+}
+
+.contato-card h3 {
+  margin-bottom: var(--esp-3xs);
+  font-size: var(--fs-base);
+  font-weight: var(--peso-titulo);
+}
+
+.contato-card p,
+.contato-card a {
+  overflow-wrap: anywhere;
+  font-size: var(--fs-sm);
+}
+
+.contato-card a[aria-disabled="true"] {
+  cursor: default;
+  text-decoration: none;
+}
+
+@media (min-width: 48em) {
+  .contato__canais {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: none;
+    gap: var(--esp-md);
+  }
+
+  .contato-card {
+    flex: 1 1 12rem;
+    max-width: 15rem;
+  }
+}
+
+/* ==========================================================================
+   15. RODAPÉ (azul) — centralizado
+   ========================================================================== */
+.site-footer {
+  --fundo-borda: var(--azul);
+  padding-block: var(--esp-2xl) var(--esp-xl);
+  background-color: var(--azul);
+  color: var(--branco);
+  text-align: center;
+}
+
+.site-footer :focus-visible {
+  outline-color: var(--cor-foco-escuro);
+}
+
+.site-footer__grade {
+  display: grid;
+  gap: var(--esp-xl);
+  justify-items: center;
+}
+
+.site-footer__marca > p {
+  margin-top: var(--esp-sm);
+}
+
+.site-footer .todo {
+  border-color: var(--ouro-fallback);
+}
+
+.site-footer__nav h2,
+.site-footer__redes h2 {
+  margin-bottom: var(--esp-xs);
+  font-family: var(--fonte-texto);
+  font-size: var(--fs-base);
+  font-weight: var(--peso-forte);
+}
+
+.site-footer__nav ul,
+.site-footer__redes ul {
+  display: grid;
+  justify-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__nav a,
+.site-footer__redes a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--alvo-toque);
+  text-decoration-color: var(--ouro-fallback);
+}
+
+.site-footer__nav a:hover,
+.site-footer__redes a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.site-footer__redes li span {
+  display: block;
+  margin-top: -0.5rem;
+  font-size: var(--fs-sm);
+}
+
+.site-footer__redes a[aria-disabled="true"] {
+  text-decoration: none;
+}
+
+.site-footer__copyright {
+  width: 100%;
+  padding-top: var(--esp-md);
+}
+
+@media (min-width: 48em) {
+  .site-footer__grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .site-footer__copyright {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ==========================================================================
+   16. BOTÃO FLUTUANTE DE WHATSAPP (ouro, ícone azul)
+   ========================================================================== */
+.whatsapp-flutuante {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--esp-md);
+  z-index: var(--z-flutuante);
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border: 2px solid var(--branco);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgb(50 64 137 / 0.25);
+  text-decoration: none;
+  transition: background-position var(--dur-lenta) var(--ease);
+}
+
+.whatsapp-flutuante.is-subido {
+  bottom: 5.5rem;
+}
+
+@media (max-width: 47.999em) {
+  .whatsapp-flutuante {
+    bottom: var(--esp-sm);
+  }
+
+  .whatsapp-flutuante.is-subido {
+    bottom: 5.25rem;
+  }
+}
+
+/* ==========================================================================
+   Páginas auxiliares (Política de Privacidade e 404)
+   ========================================================================== */
+.pagina-legal__conteudo {
+  max-width: 54rem;
+  padding-top: calc(var(--header-h) + var(--esp-lg));
+  text-align: center;
+}
+
+.pagina-legal__conteudo h1 {
+  margin-bottom: var(--esp-sm);
+}
+
+.pagina-legal__conteudo h2 {
+  margin-top: var(--esp-xl);
+  margin-bottom: var(--esp-xs);
+  font-size: var(--fs-h3);
+}
+
+.pagina-legal__atualizacao {
+  margin-bottom: var(--esp-xl);
+  font-size: var(--fs-sm);
+}
+
+.pagina-legal__conteudo .btn {
+  margin-top: var(--esp-xl);
+}
+
+.pagina-erro {
+  display: grid;
+  min-height: min(72vh, 52rem);
+  padding-block: calc(var(--header-h) + var(--esp-xl)) var(--esp-secao);
+  place-items: center;
+  text-align: center;
+}
+
+.pagina-erro__conteudo {
+  max-width: 48rem;
+}
+
+.pagina-erro__codigo {
+  margin-bottom: var(--esp-xs);
+  font-family: var(--fonte-titulo);
+  font-size: clamp(5rem, 20vw, 10rem);
+  line-height: 1;
+}
+
+.pagina-erro__conteudo > p:not(.pagina-erro__codigo) {
+  max-width: 40ch;
+  margin: var(--esp-md) auto var(--esp-lg);
+}
+
+/* ==========================================================================
+   Animação de entrada (IntersectionObserver em main.js)
+   A classe .reveal-ativo só é aplicada pelo JS e nunca com movimento reduzido:
+   sem JS, o conteúdo aparece normalmente.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ativo [data-reveal] {
+    opacity: 0;
+    translate: 0 1.5rem;
+    transition:
+      opacity var(--dur-lenta) var(--ease-out),
+      translate var(--dur-lenta) var(--ease-out);
+  }
+
+  .reveal-ativo [data-reveal].is-visivel {
+    opacity: 1;
+    translate: none;
+  }
+
+  .reveal-ativo .reveal-atraso-1 { transition-delay: 100ms; }
+  .reveal-ativo .reveal-atraso-2 { transition-delay: 200ms; }
+  .reveal-ativo .reveal-atraso-3 { transition-delay: 300ms; }
+}
+
+@media print {
+  [data-reveal] {
+    opacity: 1 !important;
+    translate: none !important;
+  }
+}

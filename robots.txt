@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO-CLIENTE: substituir pelo domínio oficial antes da publicação.
+Sitemap: https://TODO-CLIENTE-dominio.com.br/sitemap.xml

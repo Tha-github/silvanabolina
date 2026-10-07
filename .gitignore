@@ -1,0 +1,5 @@
+node_modules/
+# Gerado por npm run build
+dist/
+# Captura antiga de pré-visualização
+hero-preview.png
