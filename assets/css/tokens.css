@@ -25,12 +25,6 @@
   --ouro-gradiente-sobre-azul: linear-gradient(135deg, #F6E6A8 0%, #FCF6BA 25%, #F5E4A4 50%, #FBF5B7 75%, #F6E6A8 100%);
   --ouro-claro-fallback: #F6E6A8;
 
-  /* Ouro metálico para TEXTO GRANDE sobre branco (destaque do H1 do hero).
-     Mesma lógica do --ouro-gradiente (sombra → brilho → sombra), em tons de ouro
-     saturados como os do logo. Sobre branco: #8C5E10 5,64 · #BE8A1E 3,07 ·
-     #B98C33 3,06 · #9A6B12 4,68 · #A0701A 4,35 — todas >= 3:1 (mínimo para
-     texto grande; o brilho #FCF6BA dos botões some no branco). Não usar em texto pequeno. */
-  --ouro-gradiente-texto-claro: linear-gradient(100deg, #8C5E10 0%, #BE8A1E 18%, #B98C33 32%, #9A6B12 50%, #BE8A1E 68%, #A0701A 84%, #8C5E10 100%);
   /* Cor sólida: forced-colors, navegadores sem suporte, borda de campo e checks
      (3,27:1 sobre branco; só gráfico/borda sobre o azul) */
   --ouro-fallback: #B38728;
