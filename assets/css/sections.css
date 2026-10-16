@@ -85,28 +85,9 @@
   font-size: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
 }
 
-/* Trecho em itálico e ouro escuro (texto grande sobre branco: >= 3,27:1) */
+/* Trecho em itálico, no mesmo azul do resto do título */
 .hero__destaque {
   font-style: italic;
-  color: #9A6B12;
-}
-
-@supports (-webkit-background-clip: text) or (background-clip: text) {
-  .hero__destaque {
-    background-image: var(--ouro-gradiente-texto-claro);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-  }
-}
-
-@media (forced-colors: active) {
-  .hero__destaque {
-    -webkit-text-fill-color: currentColor;
-    background: none;
-  }
 }
 
 .hero__subtitulo {
