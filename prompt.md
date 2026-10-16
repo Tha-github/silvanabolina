@@ -293,7 +293,7 @@ Mobile-first. Pontos de quebra: 480px, 768px, 1024px, 1280px. Largura máxima do
 - `<title>` (≤ 60 caracteres): **"Psicóloga Silvana Bolina | Atendimento Online e Presencial"**
 - `<meta name="description">` (≤ 155): "Psicóloga clínica e organizacional com mais de 15 anos de experiência. Terapia para adolescentes, adultos e idosos, orientação de carreira e palestras."
 - Cidade/região: `TODO-CLIENTE` — quando houver, incluir no title, description, H2 de atendimento presencial e no JSON-LD (SEO local: "psicóloga em [cidade]").
-- `<link rel="canonical">` com o domínio final (`TODO-CLIENTE: domínio`).
+- `<link rel="canonical">` com o domínio final (https://silvanabolina.topsitebr.com.br).
 - Open Graph e Twitter Card (título, descrição, imagem 1200×630 `og-image.jpg`).
 - `meta theme-color` azul.
 - Dados estruturados JSON-LD:

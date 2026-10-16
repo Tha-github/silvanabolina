@@ -13,9 +13,8 @@ Olá, Silvana! Para concluir o site e preparar a publicação, precisamos destas
 
 ## Contato
 
-- [ ] Seu WhatsApp profissional com DDD.
-- [ ] Seu e-mail profissional para contato.
-- [ ] Os links dos seus perfis profissionais no Facebook e no Instagram.
+- [x] WhatsApp de agendamento: (47) 93380-7155.
+- [x] Instagram: @silvana_psicologa_ (o site não usa e-mail nem Facebook).
 - [x] Link da seção "Apresentadora" (os dois botões levam ao Instagram da Social TV).
 - [ ] Um e-mail de contato para assuntos de segurança do site. Pode ser o profissional, se você autorizar.
 
@@ -44,8 +43,7 @@ Olá, Silvana! Para concluir o site e preparar a publicação, precisamos destas
 
 ## Publicação
 
-- [ ] O domínio `.com.br` escolhido e a confirmação de quem terá acesso à conta de registro.
-- [ ] A hospedagem escolhida (Hostinger, HostGator, Netlify, Vercel, Cloudflare ou outra).
-- [ ] A URL oficial com ou sem `www`. O site está preparado para usar a versão sem `www`.
+- [x] Endereço do site: https://silvanabolina.topsitebr.com.br (publicado pelo GitHub Pages).
+- [x] Hospedagem: GitHub Pages (branch main).
 
 Enquanto esses itens não forem confirmados, os campos correspondentes aparecem marcados como `TODO-CLIENTE` no projeto. O site não deve ser publicado com esses marcadores visíveis.

@@ -47,7 +47,7 @@ A especificação oficial é o `prompt.md`. **Leia-o antes de qualquer tarefa.**
 ## Segurança (seção 12)
 - **Nenhum `<script>` ou `<style>` inline, nenhum atributo `style=""`, nenhum `onclick`/`on*`.** Precisa ser compatível com a CSP `script-src 'self'; style-src 'self'`. Exceção: JSON-LD.
 - **Nunca usar `innerHTML` (nem `outerHTML`/`insertAdjacentHTML`) com dados do usuário.** Usar `textContent` / `createElement`.
-- Link do WhatsApp montado no JS com `encodeURIComponent`. Os botões usam `data-whatsapp="chave"` (chave de `SITE_CONFIG.mensagens`; vazio = `padrao`) e um `href` de fallback (`#contato`). Cada CTA de seção tem a sua mensagem.
+- Link do WhatsApp montado no JS com `encodeURIComponent`. Os botões usam `data-whatsapp="chave"` (chave de `SITE_CONFIG.mensagens`; vazio = `padrao`) e um `href` direto para `https://wa.me/5547933807155` (abre a conversa mesmo sem JS; o JS acrescenta a mensagem). Cada CTA de seção tem a sua mensagem.
 - Links externos com `target="_blank" rel="noopener noreferrer"`.
 - Sem cookies de rastreamento, sem analytics, sem CDN. Mapa do Google só carrega depois do clique.
 - Formulário de contato removido a pedido da cliente (07/10/2026): o contato é só pelos canais. Se voltar a existir: validação, limpeza dos dados, honeypot e intervalo mínimo entre envios.
@@ -55,6 +55,7 @@ A especificação oficial é o `prompt.md`. **Leia-o antes de qualquer tarefa.**
 ## Dados pendentes
 - Tudo o que a cliente ainda não enviou leva o marcador **`TODO-CLIENTE`**, igual em HTML, CSS e JS, para ser achado com uma busca. Nunca inventar CRP, telefone, endereço, formação ou depoimento.
 - Endereços (16/10/2026): Itajaí — Rua José Gall, nº 1001, Dom Bosco, Itajaí – SC; Balneário Camboriú — Rua Dom Luiz, nº 199, Vila Real, Balneário Camboriú – SC (no HTML, em SITE_CONFIG.mapas e no JSON-LD). Atendimento online também para brasileiros no exterior (Portugal, Espanha, Argentina).
+- Contatos (16/10/2026): WhatsApp (47) 93380-7155 (SITE_CONFIG.whatsapp = 5547933807155) para todos os botões de agendamento e para o que não tinha canal próprio; Instagram https://www.instagram.com/silvana_psicologa_/ (com o "_" no fim; sem ele é outra pessoa). Sem e-mail e sem Facebook no site. O botão flutuante de WhatsApp fica escondido enquanto o banner ou o rodapé estão na tela.
 - CRP: 12/23806 (informado pela cliente em 16/10/2026) — no hero, no Sobre, no rodapé de todas as páginas e no JSON-LD.
 - Fotos: enquanto o arquivo não existe, o main.js marca a moldura com .foto-pendente ("Foto em breve") em vez de imagem quebrada; a imagem leva `data-foto` e um comentário `TODO-CLIENTE: foto`. Nunca usar foto de banco que pareça ser a Silvana.
 

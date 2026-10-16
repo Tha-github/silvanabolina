@@ -10,8 +10,8 @@
    Configuração central — edite aqui (dados pendentes marcados com TODO-CLIENTE)
    ========================================================================== */
 const SITE_CONFIG = Object.freeze({
-  // TODO-CLIENTE: número do WhatsApp no formato 55DDXXXXXXXXX (só dígitos)
-  whatsapp: 'TODO-CLIENTE',
+  // WhatsApp de agendamento, formato 55DDXXXXXXXXX (só dígitos): (47) 93380-7155
+  whatsapp: '5547933807155',
   // Mensagem que já vem escrita no WhatsApp. Cada botão escolhe a sua com
   // data-whatsapp="chave"; sem chave (ou chave desconhecida) usa "padrao".
   mensagens: Object.freeze({
@@ -22,12 +22,10 @@ const SITE_CONFIG = Object.freeze({
     carreira: 'Olá, Silvana! Quero cuidar da minha carreira e gostaria de conversar sobre meus próximos passos profissionais.',
     palestras: 'Olá, Silvana! Gostaria de solicitar uma proposta de palestra ou treinamento.',
   }),
-  // TODO-CLIENTE: e-mail profissional
-  email: 'TODO-CLIENTE',
+  // Sem e-mail e sem Facebook: o contato é pelo WhatsApp e pelo Instagram (16/10/2026)
   redes: Object.freeze({
-    // TODO-CLIENTE: links completos, começando com https://
-    facebook: 'TODO-CLIENTE',
-    instagram: 'TODO-CLIENTE',
+    // Links completos, começando com https://
+    instagram: 'https://www.instagram.com/silvana_psicologa_/',
     // Seção "Apresentadora": os dois botões levam ao Instagram da Social TV (16/10/2026)
     socialTv: 'https://www.instagram.com/socialtv_streaming?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw==',
     vemComAsGurias: 'https://www.instagram.com/socialtv_streaming?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw==',
@@ -75,24 +73,13 @@ function montarLinkWhatsApp(chave = 'padrao') {
 /* ==========================================================================
    Links de WhatsApp e redes sociais
    Botões usam data-whatsapp="chave", onde a chave é uma de SITE_CONFIG.mensagens.
-   Enquanto o número não estiver configurado, o href de fallback (#contato) é mantido.
+   O HTML já traz href para https://wa.me/<número> (funciona sem JS); aqui entra a mensagem.
    ========================================================================== */
 function iniciarLinks() {
   document.querySelectorAll('[data-whatsapp]').forEach((el) => {
     const href = montarLinkWhatsApp(el.dataset.whatsapp || undefined);
     if (href) linkExterno(el, href);
     else if (el.hasAttribute('data-whatsapp-card')) {
-      el.removeAttribute('href');
-      el.setAttribute('aria-disabled', 'true');
-    }
-  });
-
-  document.querySelectorAll('[data-email]').forEach((el) => {
-    const email = SITE_CONFIG.email;
-    if (typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && !email.includes('TODO-CLIENTE')) {
-      el.href = `mailto:${email}`;
-      el.textContent = email;
-    } else {
       el.removeAttribute('href');
       el.setAttribute('aria-disabled', 'true');
     }
@@ -112,22 +99,25 @@ function iniciarLinks() {
 }
 
 /* ==========================================================================
-   Botão flutuante do WhatsApp: esconde quando o rodapé está na tela.
+   Botão flutuante do WhatsApp: escondido enquanto o banner (que já tem o
+   botão de agendar) ou o rodapé estão na tela.
    ========================================================================== */
 function iniciarWhatsAppFlutuante() {
   const botao = document.querySelector('[data-whatsapp-flutuante]');
   if (!botao || !botao.href.startsWith('https://wa.me/')) return;
 
-  const rodape = document.querySelector('.site-footer');
-  if (!rodape) {
-    botao.hidden = false;
-    return;
-  }
+  const alvos = [document.querySelector('.hero'), document.querySelector('.site-footer')].filter(Boolean);
+  const visiveis = new Set();
+  const atualizar = () => { botao.hidden = visiveis.size > 0; };
 
   if (!('IntersectionObserver' in window)) {
     const atualizarFallback = () => {
-      const limites = rodape.getBoundingClientRect();
-      botao.hidden = limites.bottom > 0 && limites.top < window.innerHeight;
+      visiveis.clear();
+      for (const alvo of alvos) {
+        const limites = alvo.getBoundingClientRect();
+        if (limites.bottom > 0 && limites.top < window.innerHeight) visiveis.add(alvo);
+      }
+      atualizar();
     };
     window.addEventListener('scroll', atualizarFallback, { passive: true });
     window.addEventListener('resize', atualizarFallback);
@@ -135,11 +125,14 @@ function iniciarWhatsAppFlutuante() {
     return;
   }
 
-  const observador = new IntersectionObserver(([entrada]) => {
-    botao.hidden = entrada.isIntersecting;
+  const observador = new IntersectionObserver((entradas) => {
+    for (const entrada of entradas) {
+      if (entrada.isIntersecting) visiveis.add(entrada.target);
+      else visiveis.delete(entrada.target);
+    }
+    atualizar();
   }, { threshold: 0.01 });
-  observador.observe(rodape);
-  botao.hidden = false;
+  alvos.forEach((alvo) => observador.observe(alvo));
 }
 
 /* ==========================================================================
