@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "generate:assets": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/generate-assets.ps1"
+    "generate:assets": "node scripts/gerar-identidade.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.25.0",

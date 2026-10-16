@@ -196,7 +196,7 @@ a:hover {
   color: inherit;
 }
 
-/* Seleção em ouro sólido com texto azul profundo (5,2:1) nos dois fundos */
+/* Seleção em ouro sólido com texto azul profundo (5,4:1) nos dois fundos */
 ::selection {
   background-color: var(--ouro-fallback);
   color: var(--azul-profundo);

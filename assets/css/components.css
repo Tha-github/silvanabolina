@@ -42,8 +42,9 @@
     var(--ouro-gradiente) border-box;
 }
 
-/* Texto dourado: SOMENTE sobre fundo azul, com o ouro claro (todas as
-   paradas >= 4,5:1 sobre #324089). Nunca usar sobre branco. */
+/* Texto dourado: SOMENTE sobre o --azul-card #1667A8 (cartões e caixas azuis),
+   com o ouro claro (todas as paradas >= 4,5:1 ali). Nunca sobre branco nem
+   direto sobre o #1C79C4 das seções (nenhum dourado chega a 4,5:1). */
 .texto-ouro {
   color: var(--ouro-claro-fallback);
 }
@@ -152,10 +153,19 @@
   color: var(--azul);
 }
 
+/* Hover no tom mais escuro (5,93:1 com branco) para o texto ficar mais legível */
 .btn--contorno:hover {
-  background-color: var(--azul);
-  border-color: var(--azul);
+  background-color: var(--azul-card);
+  border-color: var(--azul-card);
   color: var(--branco);
+}
+
+/* Botão cujo link ainda não foi configurado (TODO-CLIENTE em SITE_CONFIG):
+   o main.js tira o href e marca aria-disabled. Sem opacity: o ouro sobre o
+   azul ficaria esverdeado. */
+.btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .secao--escura .btn--contorno {
@@ -165,7 +175,7 @@
 .secao--escura .btn--contorno:hover {
   background-color: var(--branco);
   border-color: var(--branco);
-  color: var(--azul);
+  color: var(--azul-card);
 }
 
 /* ==========================================================================
@@ -194,47 +204,41 @@
   min-height: var(--header-h);
 }
 
-/* ---- Logo tipográfico (monograma RV) ---- */
+/* ---- Logo oficial (arquivos gerados por scripts/gerar-identidade.mjs a
+   partir de marcadagua/): horizontal branco no header, vertical dourado no rodapé ---- */
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: var(--esp-2xs);
+  flex-shrink: 0;
   min-height: var(--alvo-toque);
   color: inherit;
   text-decoration: none;
 }
 
-.logo__rv {
-  display: inline-grid;
-  place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  flex-shrink: 0;
-  border-radius: 4px;
-  font-family: var(--fonte-titulo);
-  font-size: 1.25rem;
-  font-weight: var(--peso-titulo);
-  line-height: 1;
+/* O texto do logo horizontal é pequeno perto do RV: altura generosa dentro
+   dos 72 px do header para "Revolução de Vidas" continuar legível */
+.logo__img {
+  width: auto;
+  height: 2.875rem;
 }
 
-.logo__texto {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
+@media (min-width: 30em) {
+  .logo__img {
+    height: 3.25rem;
+  }
 }
 
-.logo__espaco {
-  font-size: 0.75rem;
-  font-weight: var(--peso-medio);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
+.logo--footer .logo__img {
+  width: min(13.75rem, 70vw);
+  height: auto;
 }
 
-.logo__nome {
-  white-space: nowrap;
-  font-family: var(--fonte-titulo);
-  font-size: 1.125rem;
-  font-weight: var(--peso-titulo);
+/* Alto contraste do sistema: o logo é imagem, então ganha um fundo próprio */
+@media (forced-colors: active) {
+  .logo__img {
+    forced-color-adjust: none;
+    background-color: #1C79C4;
+  }
 }
 
 /* ---- Botão hambúrguer (sem JS ele some: ver no-js.css) ---- */
@@ -577,6 +581,37 @@
   border-right: 2px solid var(--ouro-fallback);
   border-bottom: 2px solid var(--ouro-fallback);
   transform: rotate(45deg);
+}
+
+/* ==========================================================================
+   Foto ainda não enviada (TODO-CLIENTE: foto): o main.js marca a moldura com
+   .foto-pendente quando o arquivo não carrega, no lugar do ícone de imagem
+   quebrada. A imagem segue no DOM (só invisível), com o alt para leitores de tela.
+   ========================================================================== */
+.foto-pendente {
+  position: relative;
+  background-color: rgb(28 121 196 / 0.08);
+}
+
+.secao--escura .foto-pendente {
+  background-color: rgb(255 255 255 / 0.1);
+}
+
+.foto-pendente > img,
+.foto-pendente > picture {
+  opacity: 0;
+}
+
+.foto-pendente::after {
+  content: "Foto em breve";
+  content: "Foto em breve" / "";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--esp-xs);
+  font-size: var(--fs-sm);
+  text-align: center;
 }
 
 /* ==========================================================================

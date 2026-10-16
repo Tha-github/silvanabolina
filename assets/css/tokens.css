@@ -1,31 +1,36 @@
-/* Design tokens: paleta azul #324089, branco e ouro metálico. */
+/* Design tokens: paleta azul #1C79C4, branco e ouro metálico. */
 :root {
-  /* Azul da marca: fundos das seções escuras, textos e contornos (9,42:1 com branco) */
-  --azul: #324089;
-  /* Tom mais fundo do mesmo azul para cartões sobre as seções azuis (12,05:1 com branco) */
-  --azul-card: #26316D;
+  /* Azul da marca: fundos das seções escuras, header, rodapé, textos e
+     contornos (4,58:1 com branco — passa no AA, mas perto do limite) */
+  --azul: #1C79C4;
+  /* Tom mais escuro do mesmo azul (5,93:1 com branco): cartões, painéis e
+     caixas sobre as seções azuis (onde fica o texto pequeno) e hover dos
+     botões de contorno */
+  --azul-card: #1667A8;
   /* Azul profundo da mesma família, SÓ para texto/ícone sobre o ouro (botões,
-     faixa, botão flutuante, seleção): o #324089 dá só 2,65:1 no tom mais escuro
-     do ouro; este dá 4,92:1. */
-  --azul-profundo: #11163A;
+     faixa, botão flutuante, seleção): o #1C79C4 dá só 1,29:1 no tom mais escuro
+     do ouro; este dá 4,95:1. */
+  --azul-profundo: #071A2C;
   --branco: #FFFFFF;
 
   /* Ouro metálico (luz e sombra). Todas as paradas têm contraste >= 4,5:1 com
-     o --azul-profundo (texto dos botões e da faixa): a pior, #B07F24, dá 4,92:1.
+     o --azul-profundo (texto dos botões e da faixa): a pior, #B07F24, dá 4,95:1.
      A última parada (#AA771C na proposta original) foi clareada para #B07F24. */
   --ouro-gradiente: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #B07F24 100%);
   /* Mesmas paradas a 180°, para fios finos verticais */
   --ouro-gradiente-suave: linear-gradient(180deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #B07F24 100%);
-  /* Ouro claro para TEXTO dourado sobre o fundo azul #324089 (o ouro metálico
-     cai para 2,65:1 ali). Paradas: #E2C270 5,46 · #FCF6BA 8,53 · #DCB960 5,00 ·
-     #FBF5B7 8,45 — todas >= 4,5:1. */
-  --ouro-gradiente-sobre-azul: linear-gradient(135deg, #E2C270 0%, #FCF6BA 25%, #DCB960 50%, #FBF5B7 75%, #E2C270 100%);
-  --ouro-claro-fallback: #DCB960;
+  /* Ouro claro para TEXTO dourado, SÓ sobre o --azul-card #1667A8 (sobre o
+     #1C79C4 nenhum dourado chega a 4,5:1). Paradas sobre #1667A8: #F6E6A8 4,75 ·
+     #FCF6BA 5,38 · #F5E4A4 4,67 · #FBF5B7 5,32 — todas >= 4,5:1. */
+  --ouro-gradiente-sobre-azul: linear-gradient(135deg, #F6E6A8 0%, #FCF6BA 25%, #F5E4A4 50%, #FBF5B7 75%, #F6E6A8 100%);
+  --ouro-claro-fallback: #F6E6A8;
 
-  /* Ouro escuro para TEXTO GRANDE sobre branco (ex.: destaque do H1 do hero).
-     Paradas sobre branco: #8A6418 5,36 · #B38728 3,27 · #7A5A16 6,36 ·
-     #A87C26 3,77 — todas >= 3:1 (mínimo para texto grande). Não usar em texto pequeno. */
-  --ouro-gradiente-texto-claro: linear-gradient(135deg, #8A6418 0%, #B38728 25%, #7A5A16 50%, #A87C26 75%, #8A6418 100%);
+  /* Ouro metálico para TEXTO GRANDE sobre branco (destaque do H1 do hero).
+     Mesma lógica do --ouro-gradiente (sombra → brilho → sombra), em tons de ouro
+     saturados como os do logo. Sobre branco: #8C5E10 5,64 · #BE8A1E 3,07 ·
+     #B98C33 3,06 · #9A6B12 4,68 · #A0701A 4,35 — todas >= 3:1 (mínimo para
+     texto grande; o brilho #FCF6BA dos botões some no branco). Não usar em texto pequeno. */
+  --ouro-gradiente-texto-claro: linear-gradient(100deg, #8C5E10 0%, #BE8A1E 18%, #B98C33 32%, #9A6B12 50%, #BE8A1E 68%, #A0701A 84%, #8C5E10 100%);
   /* Cor sólida: forced-colors, navegadores sem suporte, borda de campo e checks
      (3,27:1 sobre branco; só gráfico/borda sobre o azul) */
   --ouro-fallback: #B38728;
@@ -74,10 +79,10 @@
   --raio-lg: 24px;
   --raio-pill: 999px;
 
-  --sombra-sm: 0 1px 3px rgb(50 64 137 / 0.06);
-  --sombra-md: 0 4px 12px rgb(50 64 137 / 0.08);
-  --sombra-lg: 0 8px 20px rgb(50 64 137 / 0.08);
-  --sombra-header: 0 1px 0 rgb(50 64 137 / 0.08);
+  --sombra-sm: 0 1px 3px rgb(28 121 196 / 0.06);
+  --sombra-md: 0 4px 12px rgb(28 121 196 / 0.08);
+  --sombra-lg: 0 8px 20px rgb(28 121 196 / 0.08);
+  --sombra-header: 0 1px 0 rgb(28 121 196 / 0.08);
 
   --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

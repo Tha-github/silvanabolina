@@ -12,7 +12,7 @@
 | Nome do projeto / marca | **Espaço Revolução de Vidas** |
 | Profissional responsável | **Silvana Bolina** (confirmar grafia exata do sobrenome — `TODO-CLIENTE`) |
 | Profissão | Psicóloga clínica e organizacional |
-| CRP | `TODO-CLIENTE` (obrigatório por norma do CFP em toda divulgação) |
+| CRP | 12/23806 (obrigatório por norma do CFP em toda divulgação: hero, Sobre, rodapé e JSON-LD) |
 | Experiência | Mais de 15 anos na psicologia |
 | Formação | Mestrado internacional (área de carreira e desenvolvimento profissional — ver seção 4); especialização na área clínica do emocional feminino; neuropsicologia |
 | Abordagem | Terapia Cognitivo-Comportamental (TCC), unindo ciência e valores cristãos |
@@ -75,7 +75,7 @@ O anexo 2 é o material de **outra profissional** — usar apenas como referênc
 Serviços a apresentar (confirmar com a cliente quais ela oferece):
 1. **Orientação e mentoria de carreira** — para quem quer crescer, mudar de área ou assumir liderança.
 2. **Desenvolvimento de lideranças** — para gestores e novos líderes.
-3. **Currículo e LinkedIn estratégicos** — mostrar as próprias qualidades com clareza.
+3. **Currículo estratégico** — mostrar as próprias qualidades com clareza no currículo.
 4. **Preparação para entrevistas** — segurança, clareza e controle da ansiedade.
 5. **Posicionamento profissional** — descobrir pontos fortes e como comunicá-los.
 6. **Apoio em transição de carreira** — recomeços, recolocação e retorno ao mercado (inclusive mulheres que voltam ao trabalho após um período difícil — conecta com a causa dela).
@@ -108,8 +108,8 @@ Serviços a apresentar (confirmar com a cliente quais ela oferece):
 ## 7. Identidade visual
 
 ### 7.1 Direção visual vigente (rodada de ajustes de 07/10/2026 — vence a refação anterior)
-- Paleta restrita a azul (#324089 e dois tons funcionais da mesma família), branco e ouro metálico. Não usar verde nem cores fora da paleta.
-- Tokens de cor (tokens.css): (troca de 07/10/2026: todo o azul passou a ser #324089): --azul #324089 (fundos azuis, textos, contornos; 9,42:1 com branco), --azul-card #26316D (tom mais fundo do mesmo azul, só para cartões sobre seções azuis), --azul-profundo #11163A (SÓ texto/ícone sobre o ouro: botões, faixa, flutuante, seleção — o #324089 daria 2,65:1 ali), --branco #FFFFFF; e os tokens de ouro:
+- Paleta restrita a azul (#1C79C4 e dois tons funcionais da mesma família: #1667A8 para cartões/caixas sobre azul e hover, #071A2C só para texto sobre o ouro), branco e ouro metálico. Não usar verde nem cores fora da paleta. (Troca de 16/10/2026: o azul #1C79C4 foi substituído por #1C79C4.)
+- Tokens de cor (tokens.css) (troca de 16/10/2026): --azul #1C79C4 (fundos azuis, header, rodapé, textos, contornos; 4,58:1 com branco), --azul-card #1667A8 (tom mais escuro do mesmo azul, 5,93:1 com branco: cartões, painéis e caixas sobre seções azuis e hover), --azul-profundo #071A2C (SÓ texto/ícone sobre o ouro: botões, faixa, flutuante, seleção — o #1C79C4 daria 1,29:1 ali), --branco #FFFFFF; e os tokens de ouro:
   - `--ouro-gradiente: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #B07F24 100%)` — a última parada foi escurecida só até #B07F24 (a sugestão original #AA771C dava 4,22:1 com o azul; #B07F24 dá 4,65:1).
   - `--ouro-gradiente-suave`: as mesmas paradas em 180°, para fios finos verticais.
   - `--ouro-fallback: #B38728`: cor sólida para forced-colors, navegadores sem suporte e elementos funcionais que pedem cor lisa (borda de campo de formulário, check de lista).
@@ -120,9 +120,9 @@ Serviços a apresentar (confirmar com a cliente quais ela oferece):
   - Linhas finas, bordas e o contorno do quadro da foto: gradiente (cantos arredondados com o duplo background padding-box/border-box ou pseudo-elemento com mask).
   - Texto dourado (background-clip: text) **somente sobre fundo azul**. Texto dourado sobre o azul usa --ouro-gradiente-sobre-azul (#E2C270 → #FCF6BA → #DCB960 → #FBF5B7, todas >= 5:1; fallback --ouro-claro-fallback #DCB960), nunca o ouro metálico (cai para 2,65:1). Sobre branco não há texto dourado (lá o ouro aparece em linhas, bordas e botões), com uma exceção: o trecho "o que você está vivendo" do H1 do hero, em itálico com `--ouro-gradiente-texto-claro` (ouro escuro: #8A6418, #B38728, #7A5A16, #A87C26 — todas >= 3,27:1 sobre branco, válido só para texto grande). Sobre o azul-card dos cartões, o ouro só aparece em texto grande ou em elementos gráficos (contraste de 3,69:1 a 4,74:1).
   - No hero, "Psicóloga" fica sem traço; o destaque é "o que você está vivendo" em itálico ouro escuro.
-- Saída rápida: fundo branco, borda em gradiente dourado e texto azul.
+- Sem botão "Saída rápida" (removido a pedido da cliente em 16/10/2026).
 - Conferir contraste real: mínimo 4,5:1 para texto normal e 3:1 para texto grande e componentes gráficos relevantes. Todas as paradas do --ouro-gradiente têm ≥ 4,5:1 com o --azul-profundo (texto dos botões e da faixa).
-- Alternância obrigatória de fundos, uma cor por seção, cada uma um `<section>` próprio e irmão das outras (nunca aninhado): hero branco → [faixa marquee dourada] → identificação azul → sobre branco → fé e ciência azul → atendimento clínico branco → formas de atendimento azul → carreira branco → palestras azul → causa branco → FAQ azul → contato branco → rodapé azul. A classe .secao--clara ou .secao--escura fica no próprio `<section>`; nenhum wrapper interno define outro fundo de tela cheia; nunca usar :nth-child. Depoimentos permanece oculto e não entra na alternância. Duas seções vizinhas com o mesmo fundo é erro.
+- Alternância obrigatória de fundos, uma cor por seção, cada uma um `<section>` próprio e irmão das outras (nunca aninhado): hero branco → [faixa marquee dourada] → identificação azul → sobre branco → fé e ciência azul → atendimento clínico branco → onde atendo azul → formas de atendimento azul (exceção consciente: .secao--continuacao, com fio dourado no topo) → carreira branco → palestras azul → causa branco → FAQ azul → contato branco → rodapé azul. A classe .secao--clara ou .secao--escura fica no próprio `<section>`; nenhum wrapper interno define outro fundo de tela cheia; nunca usar :nth-child. Depoimentos permanece oculto e não entra na alternância. Duas seções vizinhas com o mesmo fundo é erro.
 - Texto azul nas seções claras e branco nas escuras. Cartões brancos com borda fina em gradiente dourado nas claras; cartões --azul-card nas escuras.
 - Conteúdo centralizado, inclusive títulos, textos, listas curtas, cartões, botões e rodapé. Parágrafos com largura máxima aproximada de 680px. Exceções: texto do hero à esquerda no desktop (≥ 1024px) e perguntas e respostas do FAQ à esquerda.
 - Composições em duas colunas devem ser simétricas e centralizadas como conjunto, com texto de cada coluna centralizado (exceto o hero).
@@ -141,8 +141,8 @@ Serviços a apresentar (confirmar com a cliente quais ela oferece):
 
 As imagens de referência Thauany Martins, Ligia Fonseca e Bruna Garcia servem somente para composição, não para copiar textos, marca ou identidade visual. Aplicar a direção visual abaixo:
 
-- Header: fundo azul #324089 com textos brancos (inclusive menu mobile); abaixo de 80em o hambúrguer abre uma sidebar azul de tela inteira que desliza da direita (logo e botão X por cima), com links em Garet branco centralizados, traço dourado no item ativo e o botão de WhatsApp dourado; fecha com X, Esc ou clique num link, foco preso dentro; elementos dourados continuam dourados.
-- Hero: fundo branco, texto azul, sem espaço embaixo. Desktop (≥ 1024px): duas colunas, texto à esquerda (alinhado à esquerda) e, à direita, a foto da cliente (`assets/img/suafoto.png`, recorte com fundo transparente) sem moldura, apoiada na base da seção e encostando na faixa dourada para o corpo não parecer cortado. Atrás da foto, o símbolo da psicologia (Ψ) no azul do site, desfocado e "tremido", como elemento decorativo (substitui o monograma RV). Tablet e mobile: coluna única centralizada, texto primeiro e foto depois. TODO-CLIENTE: versão da foto em alta resolução (a atual tem 408×612 px).
+- Header: fundo azul #1C79C4 com textos brancos (inclusive menu mobile); abaixo de 80em o hambúrguer abre uma sidebar azul de tela inteira que desliza da direita (logo e botão X por cima), com links em Garet branco centralizados, traço dourado no item ativo e o botão de WhatsApp dourado; fecha com X, Esc ou clique num link, foco preso dentro; elementos dourados continuam dourados.
+- Hero: fundo branco, texto azul. Desktop (≥ 1024px): texto à esquerda e, à direita, a foto `assets/img/silvanabolina.jpg`/`.webp` (alt "Silvana Bolina, psicóloga") ocupando a altura toda do banner, do menu até a faixa dourada, com degradê branco na margem esquerda. Mobile/tablet: foto no topo, de lado a lado, com degradê embaixo para não marcar onde acaba; todas as informações vêm abaixo da foto. Sem o símbolo Ψ.
 - Faixa marquee: fina, fundo em gradiente dourado e texto azul, colada à base do hero; é divisória, não seção alternada. Sem botão de pausa: a pausa é só por CSS, ao passar o mouse (:hover) e ao receber foco por teclado (:focus-within; a faixa tem tabindex="0" e nome acessível). prefers-reduced-motion para a animação; as cópias do texto ficam com aria-hidden.
 - Títulos de seção em Lora, grandes, com uma linha curta em gradiente dourado logo abaixo, centralizada. Sem eyebrow.
 - Identificação: as frases rolam sozinhas numa faixa contínua, igual à faixa dourada abaixo do banner (só CSS, sem setas nem arraste); pausa ao passar o mouse e com foco por teclado; com prefers-reduced-motion ficam paradas, uma embaixo da outra. Frases em Lora itálico grande, brancas, entre aspas, separadas por pontinho dourado, sem cartão nem explicação.
@@ -166,7 +166,7 @@ Se a seção de depoimentos for exibida no futuro, reencaixe-a conscientemente n
 1. **Header fixo** — logo; menu (Início, Sobre, Atendimento, Carreira, Palestras, Contato); botão "Agendar pelo WhatsApp". Menu hambúrguer acessível no mobile.
 
 2. **Hero** (`#inicio`)
-   - Linha de profissão + CRP (exigência do CFP, sem número, pontos ou ícone): "PSICÓLOGA CLÍNICA E ORGANIZACIONAL, CRP `TODO-CLIENTE`". No celular, onde o subtítulo com o nome some, ela vira "SILVANA BOLINA, PSICÓLOGA CLÍNICA E ORGANIZACIONAL, CRP …".
+   - Linha de profissão + CRP (exigência do CFP, sem número, pontos ou ícone): "PSICÓLOGA CLÍNICA E ORGANIZACIONAL, CRP 12/23806". No celular, onde o subtítulo com o nome some, ela vira "SILVANA BOLINA, PSICÓLOGA CLÍNICA E ORGANIZACIONAL, CRP …".
    - H1 único: "Psicóloga para conversar sobre o que você está vivendo", com “o que você está vivendo” em itálico ouro escuro (gradiente) e tamanho de fonte reduzido (clamp 2rem–3,5rem).
    - Subtítulo: "Sou Silvana Bolina. Atendo adolescentes, adultos e idosos, online e presencialmente. Cada conversa começa com escuta, respeito e atenção à sua história."
    - CTAs: "Quero agendar uma conversa" (WhatsApp) + "Conhecer meu trabalho" (âncora).
@@ -193,14 +193,15 @@ Se a seção de depoimentos for exibida no futuro, reencaixe-a conscientemente n
 
 7. **Atendimento clínico** (`#atendimento`) — título "Psicoterapia para cada fase da vida"; cards: Adolescentes · Adultos · Idosos. Cada card: título + "Para quem é" (sem promessas), centralizado, sem ícones, numeração ou lista de tópicos.
 
-8. **Formas de atendimento** (`#formas-de-atendimento`, `<section>` própria, irmã de `#atendimento`) — dois blocos com imagem lateral (ref. anexo 7):
+7b. **Onde atendo** (`#locais`, azul, adicionada em 16/10/2026) — título "Onde atendo"; dois locais em blocos próprios: **Itajaí – SC** e **Balneário Camboriú – SC**. Cada um com galeria de 4 fotos (`assets/img/locais/itajai-1.jpg`…`itajai-4.jpg` e `balneario-camboriu-1.jpg`…`-4.jpg`, alt "Espaço de atendimento em [cidade] – foto N", loading="lazy"), 2×2 no desktop e 2 colunas no celular; endereço ("Endereço completo em breve" até a cliente enviar) e botão "Ver no mapa" que só carrega o Google Maps depois do clique. No menu entre "Sobre" e "Atendimento" e nos links rápidos do rodapé.
+8. **Formas de atendimento** (`#formas-de-atendimento`, `<section>` própria, irmã de `#locais`, também azul com fio dourado no topo — exceção consciente à alternância) — dois blocos com imagem lateral (ref. anexo 7):
    - **Presencial** — endereço `TODO-CLIENTE`, mapa opcional.
    - **Online** — "Do conforto da sua casa, com o mesmo cuidado e sigilo, por plataforma segura."
 
 9. **Carreira e Desenvolvimento Profissional** (`#carreira`) — layout ref. anexo 5:
    - Intro: "Meu mestrado foi dedicado ao desenvolvimento de pessoas e carreiras."
    - Grid com os 6 serviços da seção 4.4.
-   - Bloco **"Você vai desenvolver"** (checklist): clareza sobre seus pontos fortes · segurança em entrevistas · currículo e LinkedIn que mostram quem você é · plano de carreira possível.
+   - Bloco **"Você vai desenvolver"** (checklist): clareza sobre seus pontos fortes · segurança em entrevistas · currículo que mostra quem você é · plano de carreira possível.
    - Bloco **"Como funciona"**: encontros online · plano personalizado · materiais de apoio.
    - CTA: "Quero cuidar da minha carreira".
 
@@ -209,7 +210,7 @@ Se a seção de depoimentos for exibida no futuro, reencaixe-a conscientemente n
 11. **Uma causa que eu carrego** (`#causa`) — enfrentamento à violência doméstica:
     - Texto curto de superação (aprovação da cliente).
     - Caixa de apoio sempre visível: **"Em perigo agora? Ligue 190. Central de Atendimento à Mulher: Ligue 180 (gratuito, 24h). Violações de direitos de crianças, adolescentes e idosos: Disque 100."**
-    - Botão **"Saída rápida"** (leva a um site neutro, ex.: previsão do tempo, com `location.replace` para não ficar no histórico) — cuidado essencial para vítimas que acessam o site no celular do agressor.
+    - (O botão "Saída rápida" foi removido a pedido da cliente em 16/10/2026; os telefones 190, 180 e 100 continuam.)
 
 12. **Depoimentos** (`#depoimentos`) — componente pronto, **oculto** (`hidden`) até haver depoimentos aprovados de palestras/treinamentos/carreira (ver seção 6).
 
@@ -224,7 +225,8 @@ Se a seção de depoimentos for exibida no futuro, reencaixe-a conscientemente n
 
 14. **Contato** (`#contato`) — título "Vamos conversar?" e só os canais de contato (sem formulário, removido a pedido da cliente em 07/10/2026): WhatsApp, e-mail, Facebook, Instagram e endereço (`TODO-CLIENTE`), centralizados, lado a lado no desktop e um embaixo do outro no mobile. Aviso: não enviar informações íntimas ou sensíveis por mensagem.
 
-15. **Rodapé** — logo, frase "Formando alicerces com fé e ciência.", **Silvana Bolina — Psicóloga — CRP `TODO-CLIENTE`**, links rápidos, redes, Ligue 180, Política de Privacidade, © ano automático.
+10b. **Apresentadora** (`#apresentadora`, azul, adicionada em 16/10/2026, entre Palestras e Causa; exceção consciente à alternância com .secao--continuacao) — título "Apresentadora: conexões no Brasil e no exterior"; texto de abertura; bloco Social TV (botão "Conhecer o canal") e bloco Vem com as Gurias (texto, temas: Empreendedorismo, Empoderamento feminino, Mundo do trabalho no Brasil e no exterior, Desenvolvimento pessoal e profissional, E muito mais; horário "Ao vivo todas as quintas-feiras, às 20h (horário de Brasília)" em HTML; botão "Assistir ao programa"). Sem fotos (pedido da cliente); os botões "Conhecer o canal" e "Assistir ao programa" levam ao Instagram da Social TV. Link "Apresentadora" nos links rápidos do rodapé.
+15. **Rodapé** — logo, frase "Formando alicerces com fé e ciência.", **Silvana Bolina — Psicóloga — CRP 12/23806**, links rápidos, redes, Ligue 180, Política de Privacidade, © ano automático.
 
 16. **Botão flutuante de WhatsApp** — canto inferior direito, com `aria-label`, não cobre conteúdo no mobile.
 
@@ -249,7 +251,7 @@ Se a seção de depoimentos for exibida no futuro, reencaixe-a conscientemente n
 ├── robots.txt
 ├── sitemap.xml
 ├── site.webmanifest
-├── favicon.svg / favicon.ico / apple-touch-icon.png
+├── favicon.ico / icon-192.png / icon-512.png / apple-touch-icon.png (gerados por scripts/gerar-identidade.mjs)
 ├── .htaccess            (Apache: Hostinger, HostGator, Locaweb)
 ├── _headers             (Netlify / Cloudflare Pages)
 ├── vercel.json          (Vercel)
@@ -336,7 +338,7 @@ Mobile-first. Pontos de quebra: 480px, 768px, 1024px, 1280px. Largura máxima do
 
 ## 13. Pendências com a cliente (checklist)
 
-- [ ] Número do CRP
+- [x] Número do CRP (12/23806)
 - [ ] Grafia exata do nome completo
 - [ ] Número de WhatsApp e e-mail profissional
 - [ ] Links do Facebook e Instagram
