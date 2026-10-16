@@ -36,7 +36,8 @@ Abra `assets/js/main.js` e edite o objeto `SITE_CONFIG`, no início do arquivo:
 - `whatsapp`: somente números, com código do Brasil e DDD, por exemplo `5511999999999`.
 - `email`: e-mail profissional autorizado.
 - `redes.facebook` e `redes.instagram`: endereços completos iniciados por `https://`.
-- `mapa.endereco`: endereço do consultório. `mapa.embedUrl` é opcional.
+- `mapas.itajai.endereco` e `mapas.balneario.endereco`: endereço de cada local da seção "Onde atendo" (já preenchidos). `embedUrl` de cada um é opcional.
+- `redes.socialTv` e `redes.vemComAsGurias`: links completos (https://) do canal e do programa da seção "Apresentadora".
 
 Os cartões de contato exibem os valores configurados. O endereço do consultório e a cidade também precisam ser atualizados no texto do HTML, no JSON-LD, no sitemap e nos demais locais marcados `TODO-CLIENTE`. Não inclua dados pessoais sem autorização.
 
@@ -121,9 +122,9 @@ O registro de domínios `.br` e as instruções de DNS estão no [Registro.br](h
 
 ## Checklist depois da publicação
 
-- [ ] Abra o site em celular e computador; teste menu, âncoras, WhatsApp, formulário e mapa.
+- [ ] Abra o site em celular e computador; teste menu, âncoras, WhatsApp e os dois mapas da seção "Onde atendo".
 - [ ] Faça um envio de teste pelo formulário, sem dados sensíveis, e confirme o texto que aparece no WhatsApp.
-- [ ] Teste a página `404.html`, o botão “Saída rápida” e os links de ajuda.
+- [ ] Teste a página `404.html` e os links de ajuda (190, 180 e 100).
 - [ ] Confira se canonical, redes, telefone, CRP, endereço e políticas exibem apenas dados aprovados.
 - [ ] Cadastre e verifique o domínio no [Google Search Console](https://search.google.com/search-console/). Envie `https://SEU-DOMINIO/sitemap.xml` no relatório de Sitemaps e confira o resultado. O envio informa ao Google onde está o sitemap; não garante indexação.
 - [ ] Confira se `https://SEU-DOMINIO/robots.txt` e `https://SEU-DOMINIO/sitemap.xml` abrem corretamente.

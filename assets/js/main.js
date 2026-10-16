@@ -28,13 +28,24 @@ const SITE_CONFIG = Object.freeze({
     // TODO-CLIENTE: links completos, começando com https://
     facebook: 'TODO-CLIENTE',
     instagram: 'TODO-CLIENTE',
+    // Seção "Apresentadora": os dois botões levam ao Instagram da Social TV (16/10/2026)
+    socialTv: 'https://www.instagram.com/socialtv_streaming?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw==',
+    vemComAsGurias: 'https://www.instagram.com/socialtv_streaming?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw==',
   }),
-  mapa: Object.freeze({
-    // TODO-CLIENTE: endereço completo do consultório (rua, número, bairro, cidade - UF)
-    endereco: 'TODO-CLIENTE',
-    // Opcional: link "Incorporar um mapa" do Google Maps (https://www.google.com/maps/embed?pb=...).
-    // Vazio = o mapa é montado a partir do endereço acima.
-    embedUrl: '',
+  // Um mapa por local da seção "Onde atendo" (a chave é o data-mapa do bloco).
+  mapas: Object.freeze({
+    itajai: Object.freeze({
+      nome: 'Itajaí',
+      endereco: 'Rua José Gall, 1001, Dom Bosco, Itajaí - SC',
+      // Opcional: link "Incorporar um mapa" do Google Maps (https://www.google.com/maps/embed?pb=...).
+      // Vazio = o mapa é montado a partir do endereço acima.
+      embedUrl: '',
+    }),
+    balneario: Object.freeze({
+      nome: 'Balneário Camboriú',
+      endereco: 'Rua Dom Luiz, 199, Vila Real, Balneário Camboriú - SC',
+      embedUrl: '',
+    }),
   }),
 });
 
@@ -100,33 +111,23 @@ function iniciarLinks() {
   });
 }
 
-/* ========================================================================== 
-   Botão flutuante do WhatsApp: esconde no rodapé e sobe durante a Saída rápida.
+/* ==========================================================================
+   Botão flutuante do WhatsApp: esconde quando o rodapé está na tela.
    ========================================================================== */
 function iniciarWhatsAppFlutuante() {
   const botao = document.querySelector('[data-whatsapp-flutuante]');
   if (!botao || !botao.href.startsWith('https://wa.me/')) return;
 
   const rodape = document.querySelector('.site-footer');
-  const causa = document.querySelector('#causa');
-  let rodapeVisivel = false;
-  let causaVisivel = false;
-
-  const atualizar = () => {
-    botao.hidden = rodapeVisivel;
-    botao.classList.toggle('is-subido', causaVisivel && !rodapeVisivel);
-  };
+  if (!rodape) {
+    botao.hidden = false;
+    return;
+  }
 
   if (!('IntersectionObserver' in window)) {
     const atualizarFallback = () => {
-      const emTela = (elemento) => {
-        if (!elemento) return false;
-        const limites = elemento.getBoundingClientRect();
-        return limites.bottom > 0 && limites.top < window.innerHeight;
-      };
-      rodapeVisivel = emTela(rodape);
-      causaVisivel = emTela(causa);
-      atualizar();
+      const limites = rodape.getBoundingClientRect();
+      botao.hidden = limites.bottom > 0 && limites.top < window.innerHeight;
     };
     window.addEventListener('scroll', atualizarFallback, { passive: true });
     window.addEventListener('resize', atualizarFallback);
@@ -134,17 +135,11 @@ function iniciarWhatsAppFlutuante() {
     return;
   }
 
-  const observador = new IntersectionObserver((entradas) => {
-    for (const entrada of entradas) {
-      if (entrada.target === rodape) rodapeVisivel = entrada.isIntersecting;
-      if (entrada.target === causa) causaVisivel = entrada.isIntersecting;
-    }
-    atualizar();
+  const observador = new IntersectionObserver(([entrada]) => {
+    botao.hidden = entrada.isIntersecting;
   }, { threshold: 0.01 });
-
-  if (rodape) observador.observe(rodape);
-  if (causa) observador.observe(causa);
-  atualizar();
+  observador.observe(rodape);
+  botao.hidden = false;
 }
 
 /* ==========================================================================
@@ -155,9 +150,12 @@ function iniciarHeader() {
   if (!header) return;
 
   const links = [...header.querySelectorAll('.nav__link[href^="#"]')];
+  // Em ordem de página (o menu tem "Onde atendo" antes de "Atendimento",
+  // mas na página a seção #locais vem depois)
   const alvos = links
     .map((link) => ({ link, secao: document.getElementById(link.hash.slice(1)) }))
-    .filter((item) => item.secao);
+    .filter((item) => item.secao)
+    .sort((a, b) => (a.secao.compareDocumentPosition(b.secao) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
 
   let agendado = false;
 
@@ -270,11 +268,12 @@ function iniciarMenu() {
 }
 
 /* ==========================================================================
-   Mapa do consultório — o iframe do Google só é criado depois do clique
+   Mapas dos locais — o iframe do Google só é criado depois do clique
    (sem rastreamento antes do consentimento; prompt.md, seção 12.6)
    ========================================================================== */
-function urlDoMapa() {
-  const { embedUrl, endereco } = SITE_CONFIG.mapa;
+function urlDoMapa(local) {
+  if (!local) return null;
+  const { embedUrl, endereco } = local;
   if (embedUrl && embedUrl.startsWith('https://www.google.com/maps/embed')) return embedUrl;
   if (pendente(endereco)) return null;
   return `https://www.google.com/maps?q=${encodeURIComponent(endereco)}&output=embed`;
@@ -285,10 +284,11 @@ function iniciarMapa() {
     const botao = bloco.querySelector('[data-mapa-botao]');
     const area = bloco.querySelector('[data-mapa-area]');
     const aviso = bloco.querySelector('[data-mapa-aviso]');
+    const local = SITE_CONFIG.mapas[bloco.dataset.mapa];
     if (!botao || !area) return;
 
     botao.addEventListener('click', () => {
-      const src = urlDoMapa();
+      const src = urlDoMapa(local);
       if (!src) {
         if (aviso) aviso.textContent = 'O mapa estará disponível assim que o endereço for confirmado.';
         return;
@@ -296,7 +296,7 @@ function iniciarMapa() {
 
       const iframe = document.createElement('iframe');
       iframe.src = src;
-      iframe.title = 'Mapa com a localização do consultório de Silvana Bolina';
+      iframe.title = `Mapa com a localização do espaço de atendimento de Silvana Bolina em ${local.nome}`;
       iframe.loading = 'lazy';
       iframe.referrerPolicy = 'strict-origin-when-cross-origin';
       iframe.width = '600';
@@ -336,57 +336,19 @@ function iniciarReveal() {
   itens.forEach((el) => observador.observe(el));
 }
 
-/* ========================================================================== 
-   Saída rápida: botão visível enquanto a seção da causa está na tela.
-   Escape duas vezes em sequência também troca a página sem guardar o histórico.
+/* ==========================================================================
+   Fotos ainda não enviadas (TODO-CLIENTE: foto): se o arquivo não carregar,
+   a moldura mostra "Foto em breve" em vez do ícone de imagem quebrada.
    ========================================================================== */
-function iniciarSaidaRapida() {
-  const causa = document.querySelector('#causa');
-  const botao = document.querySelector('[data-saida-rapida]');
-  if (!causa || !botao) return;
-
-  const destino = 'https://www.google.com/search?q=previsao+do+tempo';
-  let causaVisivel = false;
-  let primeiraTecla = 0;
-
-  const sair = () => window.location.replace(destino);
-  botao.addEventListener('click', sair);
-
-  if ('IntersectionObserver' in window) {
-    const observador = new IntersectionObserver(([entrada]) => {
-      causaVisivel = entrada.isIntersecting;
-      botao.hidden = !causaVisivel;
-      if (!causaVisivel) primeiraTecla = 0;
-    }, { threshold: 0.01 });
-    observador.observe(causa);
-  } else {
-    const atualizarVisibilidade = () => {
-      const limites = causa.getBoundingClientRect();
-      causaVisivel = limites.bottom > 0 && limites.top < window.innerHeight;
-      botao.hidden = !causaVisivel;
-      if (!causaVisivel) primeiraTecla = 0;
-    };
-    window.addEventListener('scroll', atualizarVisibilidade, { passive: true });
-    window.addEventListener('resize', atualizarVisibilidade);
-    atualizarVisibilidade();
-  }
-
-  document.addEventListener('keydown', (evento) => {
-    if (evento.key !== 'Escape' || evento.repeat) return;
-    const menu = document.querySelector('[data-nav-toggle]');
-    if (!causaVisivel || menu?.getAttribute('aria-expanded') === 'true') {
-      primeiraTecla = 0;
-      return;
-    }
-
-    const agora = performance.now();
-    if (primeiraTecla && agora - primeiraTecla <= 1500) {
-      primeiraTecla = 0;
-      sair();
-      return;
-    }
-    primeiraTecla = agora;
-  }, { capture: true });
+function iniciarFotosPendentes() {
+  document.querySelectorAll('img[data-foto]').forEach((img) => {
+    const moldura = img.closest('[data-foto-moldura]') || img.parentElement;
+    const marcar = () => moldura.classList.add('foto-pendente');
+    img.addEventListener('error', marcar);
+    img.addEventListener('load', () => moldura.classList.remove('foto-pendente'));
+    // O erro pode ter acontecido antes deste script rodar (imagem sem lazy)
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) marcar();
+  });
 }
 
 /* ==========================================================================
@@ -403,6 +365,6 @@ iniciarHeader();
 iniciarMenu();
 iniciarMapa();
 iniciarReveal();
-iniciarSaidaRapida();
+iniciarFotosPendentes();
 iniciarWhatsAppFlutuante();
 iniciarAno();

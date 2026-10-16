@@ -38,8 +38,7 @@ await writeFile(resolve(outputRoot, 'assets/dist/main.min.js'), minifiedJs.code)
 await cp(resolve(projectRoot, 'assets/css/no-js.css'), resolve(outputRoot, 'assets/css/no-js.css'), { recursive: true });
 await cp(resolve(projectRoot, 'assets/img'), resolve(outputRoot, 'assets/img'), { recursive: true });
 await cp(resolve(projectRoot, 'assets/fonts'), resolve(outputRoot, 'assets/fonts'), { recursive: true });
-await cp(resolve(projectRoot, 'favicon.svg'), resolve(outputRoot, 'favicon.svg'));
-for (const file of ['favicon.ico', 'apple-touch-icon.png', 'og-image.jpg', 'robots.txt', 'sitemap.xml', 'site.webmanifest', '.htaccess', '_headers', 'vercel.json']) {
+for (const file of ['favicon.ico', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'og-image.jpg', 'robots.txt', 'sitemap.xml', 'site.webmanifest', '.htaccess', '_headers', 'vercel.json']) {
   await cp(resolve(projectRoot, file), resolve(outputRoot, file));
 }
 await cp(resolve(projectRoot, '.well-known'), resolve(outputRoot, '.well-known'), { recursive: true });

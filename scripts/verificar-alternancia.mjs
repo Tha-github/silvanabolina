@@ -2,6 +2,8 @@
 // Lista, na ordem, cada <section> e o <footer> com id, classe e background-color
 // calculado pelo navegador. Vizinhas com o mesmo fundo, seções aninhadas ou
 // seção sem .secao--clara/.secao--escura contam como erro (código de saída 1).
+// Única exceção: a seção com .secao--continuacao (fio dourado no topo) pode
+// repetir o fundo da anterior (#locais → #formas-de-atendimento).
 //
 // Uso: node scripts/verificar-alternancia.mjs [pasta]   (padrão: raiz do projeto)
 // Requer playwright-core (npm i -D playwright-core) e o Chrome instalado.
@@ -33,9 +35,11 @@ function avaliar(linhas) {
     const problemas = [];
     if (l.aninhada) problemas.push('ERRO: aninhada em outra seção');
     if (l.tag === 'section' && !/secao--(clara|escura)/.test(l.classe)) problemas.push('ERRO: sem .secao--clara/.secao--escura');
-    if (anterior && anterior.cor.split(' (')[0] === l.cor.split(' (')[0]) problemas.push(`ERRO: mesmo fundo que #${anterior.id || anterior.tag}`);
+    // Exceção consciente: .secao--continuacao repete o fundo da anterior, separada por fio dourado
+    const continuacao = /secao--continuacao/.test(l.classe);
+    if (anterior && anterior.cor.split(' (')[0] === l.cor.split(' (')[0] && !continuacao) problemas.push(`ERRO: mesmo fundo que #${anterior.id || anterior.tag}`);
     if (l.wrapperComFundo) problemas.push(`ERRO: wrapper interno com fundo (${l.wrapperComFundo})`);
-    l.situacao = problemas.length ? problemas.join('; ') : 'ok';
+    l.situacao = problemas.length ? problemas.join('; ') : (continuacao ? 'ok (continuação, com fio dourado)' : 'ok');
     erros += problemas.length;
     anterior = l;
   }

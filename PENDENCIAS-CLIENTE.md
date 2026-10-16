@@ -5,16 +5,18 @@ Olá, Silvana! Para concluir o site e preparar a publicação, precisamos destas
 ## Seus dados profissionais
 
 - [ ] Seu nome completo, escrito exatamente como deve aparecer no site.
-- [ ] Seu número de registro no CRP.
-- [ ] Sua cidade e estado.
-- [ ] O endereço do consultório, se você atende nesse local, e o link do mapa, se quiser divulgá-lo.
-- [ ] As cidades ou regiões atendidas presencialmente.
+- [x] Seu número de registro no CRP (12/23806).
+- [x] As cidades atendidas presencialmente (Itajaí – SC e Balneário Camboriú – SC).
+- [x] Os endereços dos espaços em Itajaí e Balneário Camboriú.
+- [ ] Confirmar o uso de "Dra." no logo ("Dra. Silvana Bolina"): o CFP orienta usar "Dra." só com doutorado concluído.
+- [ ] Confirmar a grafia do nome completo ("Silvana Bolina" ou "Silvana Bolina Camargo"). O CFP pede o nome completo como no registro.
 
 ## Contato
 
 - [ ] Seu WhatsApp profissional com DDD.
 - [ ] Seu e-mail profissional para contato.
 - [ ] Os links dos seus perfis profissionais no Facebook e no Instagram.
+- [x] Link da seção "Apresentadora" (os dois botões levam ao Instagram da Social TV).
 - [ ] Um e-mail de contato para assuntos de segurança do site. Pode ser o profissional, se você autorizar.
 
 ## Formação e serviços
@@ -28,7 +30,8 @@ Olá, Silvana! Para concluir o site e preparar a publicação, precisamos destas
 
 ## Fotos e textos
 
-- [ ] Fotos profissionais autorizadas para o site, como retrato e imagem do consultório. Não precisa enviar logo se não tiver uma.
+- [x] Fotos do banner, da seção "Prazer, eu sou a Silvana", dos espaços em Itajaí e Balneário Camboriú e das formas de atendimento.
+- [ ] Aprovação do texto da seção "Apresentadora" (Social TV e Vem com as Gurias).
 - [ ] Aprovação do texto pessoal sobre sua família, sua fé e sua história. O texto sobre violência doméstica também precisa da sua aprovação antes de ser publicado.
 
 ## Fonte dos títulos
